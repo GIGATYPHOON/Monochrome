@@ -754,7 +754,7 @@ GameObject:
   - component: {fileID: 1339689401}
   - component: {fileID: 1339689400}
   m_Layer: 5
-  m_Name: Join
+  m_Name: Start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
