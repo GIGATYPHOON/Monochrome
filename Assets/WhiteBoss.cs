@@ -20,6 +20,9 @@ public class WhiteBoss : MonoBehaviour
     [SerializeField]
     private GameObject whiteauraobject;
 
+    [SerializeField]
+    private GameObject whitelasertarget;
+
 
     void Start()
     {
@@ -38,14 +41,14 @@ public class WhiteBoss : MonoBehaviour
 
         if(laser == true)
         {
-            this.GetComponent<SpriteRenderer>().color = Color.red;
+
             whitelaserobject.gameObject.SetActive(true);
             whiteauraobject.gameObject.SetActive(false);
             whitelaser();
         }
         else
         {
-            this.GetComponent<SpriteRenderer>().color = Color.blue;
+
             whitelaserobject.gameObject.SetActive(false);
             whiteauraobject.gameObject.SetActive(true);
         }
@@ -63,7 +66,7 @@ public class WhiteBoss : MonoBehaviour
 
 
 
-        RaycastHit2D hit1 = Physics2D.Raycast(transform.position, GameObject.Find("Player").transform.position - this.transform.position, Mathf.Infinity, mylayermask);
+        RaycastHit2D hit1 = Physics2D.Raycast(transform.position, whitelasertarget.transform.position - this.transform.position, Mathf.Infinity, mylayermask);
 
         if (hit1)
         {
