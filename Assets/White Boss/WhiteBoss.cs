@@ -7,7 +7,6 @@ public class WhiteBoss : MonoBehaviour
     [SerializeField]
     private GameObject shield;
 
-
     [SerializeField]
     bool laser = false;
 
@@ -23,6 +22,7 @@ public class WhiteBoss : MonoBehaviour
     [SerializeField]
     private GameObject whitelasertarget;
 
+    public bool invincible = true;
 
     void Start()
     {
@@ -32,12 +32,12 @@ public class WhiteBoss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(shield.GetComponent<Entity>().returnHP() <= 0)
+        if (shield.GetComponent<Entity>().returnHP() < 0)
         {
-            shield.SetActive(false);
+            shield.SetActive(false); 
+            invincible = false;
         }
-
-
+        
 
         if(laser == true)
         {

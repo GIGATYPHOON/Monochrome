@@ -69,15 +69,33 @@ public class PlayerShotScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.layer==6)
+        if(collision.gameObject.layer==6 || collision.gameObject.layer == 9)
         {
             bulletdies();
         }
 
         if(collision.gameObject.tag == "Enemy")
         {
-            collision.gameObject.GetComponent<Entity>().LoseHP(1f);
-            bulletdies();
+            if (collision.gameObject.GetComponent<WhiteBoss>())
+            {
+                if (collision.gameObject.GetComponent<WhiteBoss>().invincible)
+                {
+
+                }
+
+                else
+                {
+                    collision.gameObject.GetComponent<Entity>().LoseHP(1f);
+                    bulletdies();
+                }
+            }
+            else
+            {
+                collision.gameObject.GetComponent<Entity>().LoseHP(1f);
+                bulletdies();
+            }
+                
+            
         }
 
         if (collision.gameObject.tag == "Player" && isreflected == true)
