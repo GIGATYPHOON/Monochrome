@@ -17,8 +17,8 @@ public class Network_Setup : MonoBehaviourPunCallbacks
     private void Start()
     {
         debugger = DebugLog.Instance;
-        NetworkPanel.SetActive(false);
-        LoadingPanel.SetActive(true);
+        LoadingPanel.SetActive(false);
+        NetworkPanel.SetActive(true);
     }
 
     public override void OnConnectedToMaster()
