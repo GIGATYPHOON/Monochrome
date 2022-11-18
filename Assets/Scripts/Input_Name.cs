@@ -6,7 +6,7 @@ using Photon.Pun;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(TMP_InputField))]
-public class NameInputField : MonoBehaviour
+public class Input_Name : MonoBehaviour
 {
     private TMP_InputField input;
     [SerializeField] private Button connectButton;
@@ -29,4 +29,5 @@ public class NameInputField : MonoBehaviour
         connectButton.interactable = true;
     }
 }
+
 
