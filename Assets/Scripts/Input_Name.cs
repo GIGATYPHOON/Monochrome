@@ -27,6 +27,8 @@ public class Input_Name : MonoBehaviour
         //Set the name of the player in photon
         PhotonNetwork.NickName = value;
         connectButton.interactable = true;
+
+        //hi
     }
 }
 
