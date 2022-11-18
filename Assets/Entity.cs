@@ -28,4 +28,9 @@ public class Entity : MonoBehaviour
     {
         HP -= HPtoLose;
     }
+
+    public float returnHP()
+    {
+        return HP;
+    }
 }

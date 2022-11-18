@@ -169,13 +169,13 @@ public class PlayerScript : MonoBehaviour
 
         if (facingright == true)
         {
-            directionface.GetComponent<SpriteRenderer>().flipY = false;
+            directionface.GetComponent<SpriteRenderer>().flipX = true;
             bulletsource.transform.localPosition = new Vector2(0.855f, 0);
         }
         else
         {
 
-            directionface.GetComponent<SpriteRenderer>().flipY = true;
+            directionface.GetComponent<SpriteRenderer>().flipX =  false;
             bulletsource.transform.localPosition = new Vector2(-0.855f, 0);
         }
     }

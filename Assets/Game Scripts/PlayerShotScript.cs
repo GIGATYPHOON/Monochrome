@@ -18,10 +18,15 @@ public class PlayerShotScript : MonoBehaviour
 
     private float lifetime;
 
+    private bool isreflected = false;
+
+    private Vector3 setvelocity;
+
 
 
     void Start()
     {
+
         lifetime = setlifetime;
 
 
@@ -34,15 +39,24 @@ public class PlayerShotScript : MonoBehaviour
 
         speedadd = playershooting.GetComponent<Rigidbody2D>().velocity.x;
 
-        if (startright ==true)
-        {
-            GetComponent<Rigidbody2D>().velocity =( transform.right * (shotspeed + speedadd)) ;
 
+        if(isreflected )
+        {
+            //GetComponent<Rigidbody2D>().velocity = setvelocity;
         }
         else
         {
-            GetComponent<Rigidbody2D>().velocity = transform.right *    (-shotspeed + speedadd);
+            if (startright == true)
+            {
+                GetComponent<Rigidbody2D>().velocity = (transform.right * (shotspeed + speedadd));
+
+            }
+            else
+            {
+                GetComponent<Rigidbody2D>().velocity = transform.right * (-shotspeed + speedadd);
+            }
         }
+
 
 
         lifetime -= 10f * Time.deltaTime;
@@ -60,16 +74,27 @@ public class PlayerShotScript : MonoBehaviour
             bulletdies();
         }
 
-        if(collision.gameObject.name== "VinnaDebug")
+        if(collision.gameObject.tag == "Enemy")
         {
             collision.gameObject.GetComponent<Entity>().LoseHP(1f);
             bulletdies();
         }
+
+
     }
 
     private void bulletdies()
     {
         this.gameObject.SetActive(false);
         lifetime = setlifetime;
+        setvelocity = Vector3.zero;
+        isreflected = false;
+    }
+
+    public void reflect()
+    {
+        setvelocity = (Vector3.Normalize(GameObject.Find("Player").transform.position - this.transform.position) * 12f);
+        isreflected = true;
+
     }
 }
