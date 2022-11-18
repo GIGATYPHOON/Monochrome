@@ -16,11 +16,11 @@ public class WhiteBossLaser : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "Player")
         {
-            collision.gameObject.GetComponent<Entity>().LoseHP(5f);
+            collision.gameObject.GetComponent<Entity>().LoseHP(1f);
         }
     }
 }

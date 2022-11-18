@@ -76,7 +76,7 @@ public class WhiteBoss : MonoBehaviour
 
             whitelaserobject.gameObject.transform.position = (hit1.point + new Vector2(transform.position.x, transform.position.y) ) / 2;
             whitelaserobject.gameObject.transform.rotation = Quaternion.FromToRotation(this.transform.up, hit1.point - new Vector2(transform.position.x, transform.position.y));
-            whitelaserobject.gameObject.transform.localScale = new Vector2( whitelaserobject.gameObject.transform.localScale.x, hit1.distance);
+            whitelaserobject.gameObject.transform.localScale = new Vector2( 0.75f, hit1.distance);
 
             print(hit1.point);
 
