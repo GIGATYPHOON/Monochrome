@@ -20,7 +20,7 @@ public class WhiteBossLaser : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-            collision.gameObject.GetComponent<Entity>().LoseHP(1f);
+            collision.gameObject.GetComponent<Entity>().LoseHP(5f);
         }
     }
 }
