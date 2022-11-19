@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class Entity : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class Entity : MonoBehaviour
     [SerializeField]
     private GameObject hpbar;
 
+    public UnityEvent onHit;
+
     void Start()
     {
         
@@ -21,12 +24,14 @@ public class Entity : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        hpbar.GetComponentInChildren<Image>().fillAmount = HP / MaxHP;
+        if (hpbar != null)
+            hpbar.GetComponentInChildren<Image>().fillAmount = HP / MaxHP;
     }
 
     public void LoseHP(float HPtoLose)
     {
         HP -= HPtoLose;
+        onHit.Invoke();
     }
 
     public float returnHP()

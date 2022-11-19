@@ -2221,6 +2221,21 @@ MonoBehaviour:
   HP: 100
   MaxHP: 100
   hpbar: {fileID: 1859163444}
+  onHit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1133315529}
+        m_TargetAssemblyTypeName: WhiteBoss, Assembly-CSharp
+        m_MethodName: FireMissiles
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1133315529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2235,13 +2250,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shield: {fileID: 1294175422}
   laser: 0
-  mylayermask:
+  laserMask:
     serializedVersion: 2
     m_Bits: 512
+  bulletMask:
+    serializedVersion: 2
+    m_Bits: 576
   whitelaserobject: {fileID: 876978982}
   whiteauraobject: {fileID: 1555463036}
   whitelasertarget: {fileID: 1423804421}
   invincible: 1
+  missileCooldown: 7
+  currentMissileCooldown: 0
+  missileObj: {fileID: 3072434040819586971, guid: 2d5444001c1b338459eee40764fbf605, type: 3}
+  canFireBullets: 1
+  bulletFireRate: 0.7
+  bulletObj: {fileID: 371484569217187556, guid: 4f30823ece9824243a4fe39132bb58d5, type: 3}
+  playerList:
+  - {fileID: 1217906486}
 --- !u!1 &1136714188
 GameObject:
   m_ObjectHideFlags: 0
@@ -2464,6 +2490,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!4 &1217906486 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5296306403270051786, guid: a79daf269b7543143926a4125d4093d2, type: 3}
+  m_PrefabInstance: {fileID: 1395215589}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1269320983
 GameObject:
   m_ObjectHideFlags: 0
@@ -2611,9 +2642,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 051c04de08d93af43b98a31a8fdb3b32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 100
+  HP: 1
   MaxHP: 100
   hpbar: {fileID: 1049613487}
+  onHit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!61 &1294175426
 BoxCollider2D:
   m_ObjectHideFlags: 0
