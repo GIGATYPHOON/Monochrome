@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -7998125298904731435}
   - component: {fileID: 5067026815581016700}
   - component: {fileID: 371484569217187557}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BouncingBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,7 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396304131c9541a41afc79e8e1ec2f8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  directionMultiplier: 4
+  directionMultiplier: 14
   movementSpeed: 10
   maxBounces: 3
   currentBounces: 0

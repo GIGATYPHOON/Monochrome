@@ -33,6 +33,13 @@ public class WhiteBoss : MonoBehaviour
     [SerializeField]
     private GameObject missileObj;
 
+
+    [SerializeField]
+    private GameObject bulletspawnrotater;
+    [SerializeField]
+    private GameObject bulletspawn;
+
+
     [SerializeField]
     private bool canFireBullets;
     [SerializeField]
@@ -114,10 +121,16 @@ public class WhiteBoss : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(transform.position, player.position - this.transform.position, Mathf.Infinity, bulletMask);
             if (hit)
             {
-                Debug.DrawRay(this.transform.position, hit.point - new Vector2(transform.position.x, transform.position.y), Color.green);
-                GameObject bullet = GameObject.Instantiate(bulletObj, transform.position, Quaternion.identity);
-                bullet.GetComponent<BouncingBullet>().SetDirection(player.position - transform.position);
-                break;
+
+                if(hit.collider.gameObject.tag == "Player")
+                {
+                    Debug.DrawRay(this.transform.position, hit.point - new Vector2(transform.position.x, transform.position.y), Color.green);
+                    bulletspawnrotater.transform.rotation = Quaternion.FromToRotation(this.transform.up, hit.point - new Vector2(transform.position.x, transform.position.y));
+                    GameObject bullet = GameObject.Instantiate(bulletObj, bulletspawn.transform.position, Quaternion.identity);
+                    bullet.GetComponent<BouncingBullet>().SetDirection(player.position - transform.position);
+                    break;
+                }
+
             }
         }        
     }
