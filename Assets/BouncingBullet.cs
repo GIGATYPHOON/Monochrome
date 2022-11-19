@@ -41,10 +41,14 @@ public class BouncingBullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.transform.tag == "Player" || currentBounces >= maxBounces)
+        if (collision.transform.tag == "Player")
         {
             collision.transform.GetComponent<Entity>()?.LoseHP(3.0f);
+            Destroy(this.gameObject); //To be changed to destroy over network
+        }
 
+        if (currentBounces >= maxBounces)
+        {
             Destroy(this.gameObject); //To be changed to destroy over network
         }
 
