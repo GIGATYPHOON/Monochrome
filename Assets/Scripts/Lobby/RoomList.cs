@@ -9,17 +9,17 @@ using UnityEngine.UI;
 public class RoomList : MonoBehaviourPunCallbacks
 {
     [SerializeField]
-    private RoomInfoEntry roomPrefab;
+    private Room_Info roomPrefab;
     [SerializeField]
     private Transform content;
 
-    private List<RoomInfoEntry> listings = new List<RoomInfoEntry>();
+    private List<Room_Info> listings = new List<Room_Info>();
 
     //Whenever the local client joins a room, clear all the room listings so we can properly refresh when the roomList is opened
     public override void OnJoinedRoom()
     {
         //Destroy each prefab in the listings
-        foreach (RoomInfoEntry entry in listings)
+        foreach (Room_Info entry in listings)
             Destroy(entry.gameObject);
         //clear the list
         listings.Clear();
@@ -54,7 +54,7 @@ public class RoomList : MonoBehaviourPunCallbacks
                 if (roomIndex == -1)
                 {
                     //Add a roomlistprefab 
-                    RoomInfoEntry item = Instantiate(roomPrefab, content);
+                    Room_Info item = Instantiate(roomPrefab, content);
                     item.SetRoomInfo(info);
                     listings.Add(item);
                 }

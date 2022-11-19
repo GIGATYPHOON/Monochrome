@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 using Photon.Pun;
 using Photon.Realtime;
-public class PlayerListUI : MonoBehaviourPunCallbacks
+public class PlayerList : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     private Player_Info playerPrefab;
@@ -44,7 +44,7 @@ public class PlayerListUI : MonoBehaviourPunCallbacks
             Destroy(entry.gameObject);
         //clear the list
         listings.Clear();
-        Lobby_Manager.Instance.ShowPanel("roomList");
+        Lobby_Manager.Instance.ShowPanel("player listoo");
     }
 
     //When another joins the room
