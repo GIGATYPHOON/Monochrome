@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Lobby.unity
     guid: c49d3574f0fe2da47a4fac408ba480ab
+  - enabled: 1
+    path: Assets/White Boss/White boss.unity
+    guid: 1312f0b76cc4fd5449004d07a7f2a355
   m_configObjects: {}
