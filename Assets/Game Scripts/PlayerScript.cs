@@ -4,8 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerScript : MonoBehaviour
+public class PlayerScript : MonoBehaviourPunCallbacks
 {
+    private PhotonView photonview;
+
     [SerializeField]
     private bool startsright;
 
@@ -54,7 +56,10 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
 
-        if(attacking == false)
+        if (!photonView.IsMine)
+            return;
+
+        if (attacking == false)
         {
 
             Facing();
