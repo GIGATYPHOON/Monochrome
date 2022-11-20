@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun.UtilityScripts;
+using Photon.Realtime;
 
 public class PlayerScript : MonoBehaviourPunCallbacks
 {
@@ -44,6 +45,18 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     private bool attacking = false;
 
     private int jumpcharges = 1;
+
+
+    private void Awake()
+
+    {
+
+        if (!photonView.IsMine && GetComponent<PlayerScript>() != null)
+        {
+            Destroy(GetComponent<PlayerScript>());
+        }
+    }
+
 
     void Start()
     {
