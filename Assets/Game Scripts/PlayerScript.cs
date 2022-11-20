@@ -50,11 +50,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     private void Awake()
 
     {
-
-        if (!photonView.IsMine && GetComponent<PlayerScript>() != null)
-        {
-            Destroy(GetComponent<PlayerScript>());
-        }
+        this.GetComponentInChildren<Camera>().enabled = true;
     }
 
 
