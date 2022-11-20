@@ -8,6 +8,8 @@ public class Network_Manager : SingletonPun<Network_Manager>
 {
     private const string playerPefabName = "Player";
 
+
+
     [SerializeField]
     private Sprite[] playerSprites;
 
