@@ -6,23 +6,28 @@ using UnityEngine;
 
 public class WhiteBoss : MonoBehaviour
 {
+   
     [SerializeField]
     private GameObject shield;
 
     [SerializeField]
     private int phase = 1;
-
+    #region spriteSerial
     [SerializeField]
     private Sprite phase1sprite;
     [SerializeField]
     private Sprite phase2sprite;
     [SerializeField]
     private Sprite phase3sprite;
+    #endregion
 
+
+    
+
+    #region Lasers
 
     [SerializeField]
     bool laser = false;
-
     [SerializeField]
     LayerMask laserMask;
     [SerializeField]
@@ -37,6 +42,7 @@ public class WhiteBoss : MonoBehaviour
     [SerializeField]
     private GameObject whitelasertarget;
 
+    #endregion
     public bool invincible = true;
 
     [SerializeField]
@@ -46,12 +52,13 @@ public class WhiteBoss : MonoBehaviour
     [SerializeField]
     private GameObject missileObj;
 
-
+   
 
     [SerializeField]
     private GameObject whiteavoidanceobject;
+  
 
-
+    #region bulletFields
     [SerializeField]
     private string bouncingbulletID;
     [SerializeField]
@@ -59,13 +66,14 @@ public class WhiteBoss : MonoBehaviour
     [SerializeField]
     private GameObject bulletspawn;
 
-
+    
     [SerializeField]
     private bool canFireBullets;
     [SerializeField]
     private float bulletFireRate;
     [SerializeField]
     private GameObject bulletObj;
+    #endregion
 
     public List<Transform> playerList; //To be removed when Photon player list is implemented
 
@@ -89,51 +97,57 @@ public class WhiteBoss : MonoBehaviour
         {
             shield.SetActive(false); 
             invincible = false;
+           
             phase = 2;
             
         }
-        
-        
-        if(phase == 1)
+        if (GetComponent<Entity>().returnHP() < 51)
         {
-            if (laser == true)
-            {
+           
+            invincible = false;
 
-                whitelaserobject.gameObject.SetActive(true);
-                whiteauraobject.gameObject.SetActive(false);
-                whitelaser();
-            }
-            else
-            {
+            phase = 3;
 
+        }
+
+
+        switch (phase)
+
+        {
+            case 1:
+
+                LaserCheck();
+                canFireBullets = false;
+                GetComponent<SpriteRenderer>().sprite = phase1sprite;
+                whiteavoidanceobject.gameObject.transform.position = this.transform.position;
+                whiteavoidanceobject.gameObject.SetActive(false);
+                break;
+            case 2:
+                whiteavoidanceobject.gameObject.SetActive(true);
                 whitelaserobject.gameObject.SetActive(false);
-                whiteauraobject.gameObject.SetActive(true);
-            }
+                whiteauraobject.gameObject.SetActive(false);
+                canFireBullets = true;
 
-            GetComponent<SpriteRenderer>().sprite = phase1sprite;
-            whiteavoidanceobject.gameObject.transform.position = this.transform.position;
-            whiteavoidanceobject.gameObject.SetActive(false);
-        }
-        else if (phase ==2)
-        {
+                this.transform.position = whiteavoidanceobject.transform.position;
 
-            whiteavoidanceobject.gameObject.SetActive(true);
-            whitelaserobject.gameObject.SetActive(false);
-            whiteauraobject.gameObject.SetActive(false);
+                GetComponent<SpriteRenderer>().sprite = phase2sprite;
 
-            this.transform.position = whiteavoidanceobject.transform.position;
+                break;
+            case 3:
 
-            GetComponent<SpriteRenderer>().sprite = phase2sprite;
+                    //To-do: raycast to player position with distance to check if we want to run laser
+                    LaserCheck();
+                    
 
-        }
+                  GetComponent<SpriteRenderer>().sprite = phase3sprite;
 
-
-
-
+                whiteavoidanceobject.gameObject.SetActive(true);
+                this.transform.position = whiteavoidanceobject.transform.position;
+                canFireBullets = true;
+                break;
+        };
         
-
-        
-
+ 
         TickMissleCooldown();      
     }
 
@@ -169,7 +183,7 @@ public class WhiteBoss : MonoBehaviour
             if (hit)
             {
 
-                if(hit.collider.gameObject.tag == "Player" && phase ==2)
+                if(hit.collider.gameObject.tag == "Player")
                 {
 
 
@@ -213,5 +227,24 @@ public class WhiteBoss : MonoBehaviour
             GameObject missile = GameObject.Instantiate(missileObj, transform.position, Quaternion.identity); //To be replaced with PhotonNetwork.Instantiate
             missile.GetComponent<WhiteBossMissile>().SetTarget(player);
         }
+    }
+    private void LaserCheck()
+    {
+       
+        if (laser == true)
+        {
+
+            whitelaserobject.gameObject.SetActive(true);
+            whiteauraobject.gameObject.SetActive(false);
+            whitelaser();
+        }
+        else
+        {
+
+            whitelaserobject.gameObject.SetActive(false);
+            whiteauraobject.gameObject.SetActive(true);
+        }
+      
+
     }
 }

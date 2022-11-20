@@ -155,7 +155,7 @@ Transform:
   m_Children:
   - {fileID: 520469456}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &92189906
 MonoBehaviour:
@@ -367,7 +367,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 127772309}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.84, z: 0}
   m_LocalScale: {x: 2, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -619,7 +619,7 @@ Transform:
   m_Children:
   - {fileID: 1987672921}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &289036732
 GameObject:
@@ -1504,7 +1504,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 690864978}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5, y: 2, z: 0}
+  m_LocalPosition: {x: 5.32, y: 0.65, z: 0}
   m_LocalScale: {x: 2, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1875,7 +1875,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &876978984
 SpriteRenderer:
@@ -2374,8 +2374,9 @@ Transform:
   m_Children:
   - {fileID: 1434832315}
   - {fileID: 1129607476}
+  - {fileID: 1555463038}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1133315525
 BoxCollider2D:
@@ -2487,7 +2488,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 051c04de08d93af43b98a31a8fdb3b32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 100
+  HP: 53
   MaxHP: 100
   hpbar: {fileID: 1859163444}
   onHit:
@@ -2540,7 +2541,7 @@ MonoBehaviour:
   bouncingbulletID: BouncingBullet
   bulletspawnrotater: {fileID: 1129607475}
   bulletspawn: {fileID: 855812206}
-  canFireBullets: 1
+  canFireBullets: 0
   bulletFireRate: 0.09
   bulletObj: {fileID: 371484569217187556, guid: 4f30823ece9824243a4fe39132bb58d5, type: 3}
   playerList:
@@ -2905,7 +2906,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1294175425
 MonoBehaviour:
@@ -2919,8 +2920,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 051c04de08d93af43b98a31a8fdb3b32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 1
-  MaxHP: 1
+  HP: 10
+  MaxHP: 10
   hpbar: {fileID: 1049613487}
   onHit:
     m_PersistentCalls:
@@ -3624,12 +3625,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1555463036}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.91, z: 0}
-  m_LocalScale: {x: 18, y: 18, z: 1}
+  m_LocalPosition: {x: 0, y: 0.029999971, z: 0}
+  m_LocalScale: {x: 9, y: 9, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 1133315524}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &1555463040
 CircleCollider2D:
@@ -3917,7 +3918,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1940941484
 GameObject:
@@ -4015,7 +4016,7 @@ RectTransform:
   - {fileID: 1859163445}
   - {fileID: 294700258}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
