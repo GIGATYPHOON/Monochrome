@@ -78,6 +78,9 @@ public class PlayerScript : MonoBehaviourPunCallbacks
 
     private void FixedUpdate()
     {
+        if (!photonView.IsMine)
+            return;
+
         Movement();
     }
 
