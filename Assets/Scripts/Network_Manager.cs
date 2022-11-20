@@ -43,6 +43,7 @@ public class Network_Manager : SingletonPun<Network_Manager>
 
 
         PhotonNetwork.Instantiate(playerPefabName, Vector3.zero, Quaternion.identity);
+
     }
 
     private void UpdatePlayerNumbering()

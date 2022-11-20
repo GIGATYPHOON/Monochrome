@@ -34,6 +34,9 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     [SerializeField]
     private float jumpheight = 10f;
 
+    [SerializeField]
+    private GameObject camsforplayer;
+
     private int shotlimit = 8;
     private int shotstaken = 0;
 
@@ -48,24 +51,22 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     private int jumpcharges = 1;
 
 
-    private void Awake()
-
+    private void OnEnable()
     {
+        base.OnEnable();
 
+        if (!photonView.IsMine)
+            return;
+
+        camsforplayer.gameObject.SetActive(true);
     }
-
 
     void Start()
     {
+
         if (!photonView.IsMine)
-        {
-            this.GetComponent<Camera>().enabled = false;
-
             return;
-        }
 
-
-        this.GetComponent<Camera>().enabled = true;
 
 
         facingright = startsright;
