@@ -50,12 +50,15 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     private void Awake()
 
     {
-        this.GetComponentInChildren<Camera>().enabled = true;
+
     }
 
 
     void Start()
     {
+        this.GetComponentInChildren<Camera>().enabled = true;
+
+
         facingright = startsright;
 
         reload = reloadtimer;
