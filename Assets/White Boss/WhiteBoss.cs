@@ -1,3 +1,5 @@
+using Photon.Pun.Demo.Asteroids;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +8,17 @@ public class WhiteBoss : MonoBehaviour
 {
     [SerializeField]
     private GameObject shield;
+
+    [SerializeField]
+    private int phase = 1;
+
+    [SerializeField]
+    private Sprite phase1sprite;
+    [SerializeField]
+    private Sprite phase2sprite;
+    [SerializeField]
+    private Sprite phase3sprite;
+
 
     [SerializeField]
     bool laser = false;
@@ -34,6 +47,13 @@ public class WhiteBoss : MonoBehaviour
     private GameObject missileObj;
 
 
+
+    [SerializeField]
+    private GameObject whiteavoidanceobject;
+
+
+    [SerializeField]
+    private string bouncingbulletID;
     [SerializeField]
     private GameObject bulletspawnrotater;
     [SerializeField]
@@ -62,26 +82,53 @@ public class WhiteBoss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        GetComponent<Animator>().SetInteger("Phase", phase);
+
+
         if (shield.GetComponent<Entity>().returnHP() < 0)
         {
             shield.SetActive(false); 
             invincible = false;
+            phase = 2;
+            
         }
         
-
-        if(laser == true)
+        
+        if(phase == 1)
         {
+            if (laser == true)
+            {
 
-            whitelaserobject.gameObject.SetActive(true);
-            whiteauraobject.gameObject.SetActive(false);
-            whitelaser();
+                whitelaserobject.gameObject.SetActive(true);
+                whiteauraobject.gameObject.SetActive(false);
+                whitelaser();
+            }
+            else
+            {
+
+                whitelaserobject.gameObject.SetActive(false);
+                whiteauraobject.gameObject.SetActive(true);
+            }
+
+            GetComponent<SpriteRenderer>().sprite = phase1sprite;
+            whiteavoidanceobject.gameObject.transform.position = this.transform.position;
+            whiteavoidanceobject.gameObject.SetActive(false);
         }
-        else
+        else if (phase ==2)
         {
 
+            whiteavoidanceobject.gameObject.SetActive(true);
             whitelaserobject.gameObject.SetActive(false);
-            whiteauraobject.gameObject.SetActive(true);
+            whiteauraobject.gameObject.SetActive(false);
+
+            this.transform.position = whiteavoidanceobject.transform.position;
+
+            GetComponent<SpriteRenderer>().sprite = phase2sprite;
+
         }
+
+
+
 
         
 
@@ -106,7 +153,7 @@ public class WhiteBoss : MonoBehaviour
             whitelaserobject.gameObject.transform.rotation = Quaternion.FromToRotation(this.transform.up, hit1.point - new Vector2(transform.position.x, transform.position.y));
             whitelaserobject.gameObject.transform.localScale = new Vector2(0.75f, hit1.distance);
 
-            print(hit1.point);
+
 
         }
     }
@@ -122,18 +169,31 @@ public class WhiteBoss : MonoBehaviour
             if (hit)
             {
 
-                if(hit.collider.gameObject.tag == "Player")
+                if(hit.collider.gameObject.tag == "Player" && phase ==2)
                 {
+
+
                     Debug.DrawRay(this.transform.position, hit.point - new Vector2(transform.position.x, transform.position.y), Color.green);
                     bulletspawnrotater.transform.rotation = Quaternion.FromToRotation(this.transform.up, hit.point - new Vector2(transform.position.x, transform.position.y));
-                    GameObject bullet = GameObject.Instantiate(bulletObj, bulletspawn.transform.position, Quaternion.identity);
-                    bullet.GetComponent<BouncingBullet>().SetDirection(player.position - transform.position);
+
+                    GameObject bullet = ObjectPoolManager.Instance.GetPooledObject(bouncingbulletID);
+
+
+                    if(bullet != null)
+                    {
+                        bullet.GetComponent<BouncingBullet>().SetDirection(player.position - transform.position);
+                        bullet.transform.position = bulletspawn.transform.position;
+                        bullet.transform.rotation = bulletspawn.transform.rotation;
+                        bullet.SetActive(true);
+                    }
+
                     break;
                 }
 
             }
         }        
     }
+
 
     private void TickMissleCooldown()
     {

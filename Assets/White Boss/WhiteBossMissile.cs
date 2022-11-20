@@ -18,6 +18,12 @@ public class WhiteBossMissile : MonoBehaviour
     [SerializeField]
     private float avoidanceForce;
 
+    [SerializeField]
+    private LayerMask avoidlayermask;
+
+    [SerializeField]
+    private GameObject explosion;
+
     private void OnEnable()
     {
         
@@ -31,6 +37,17 @@ public class WhiteBossMissile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        this.transform.rotation = Quaternion.Euler(0, 0, this.transform.rotation.eulerAngles.z);
+
+
+
+        if(this.GetComponent<Entity>().returnHP() <= 0)
+        {
+            Die();
+        }
+
+
+
         MoveTowardsTarget();
 
         if (targetPlayer == null)
@@ -57,38 +74,57 @@ public class WhiteBossMissile : MonoBehaviour
         Vector3 resultDir;
         resultDir = targetPlayer.position - transform.position;
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, resultDir, LayerMask.NameToLayer("Terrain"));
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, resultDir, avoidlayermask);
+
+        RaycastHit2D hit1 = Physics2D.Raycast(transform.position, transform.up, 2.3f, avoidlayermask);
 
         var ray = new Ray2D(transform.position, resultDir);
 
-        if (hit)
-        {
-            Debug.Log("Raycast hit " + hit.transform.name);
+        var ray2 = new Ray2D(this.transform.position, transform.up * 2.3f);
 
-            if (LayerMask.LayerToName(hit.transform.gameObject.layer) == "Terrain")
+        if (hit1)
+        {
+
+            if (LayerMask.LayerToName(hit.transform.gameObject.layer) == "Terrain" || LayerMask.LayerToName(hit.transform.gameObject.layer) == "Null")
             {
-                Quaternion deflectRotation = Quaternion.FromToRotation(-ray.direction, hit.normal);
+                Quaternion deflectRotation = Quaternion.FromToRotation(-ray2.direction, hit.normal);
                 Vector2 MirrorPoint = deflectRotation * hit.normal * 1f;
+
+
+                resultDir = MirrorPoint;
                 Debug.DrawRay(hit.point, MirrorPoint, Color.magenta);
-                resultDir = MirrorPoint + hit.point;
+
             }
+            
         }
 
-        
+
+
         return resultDir.normalized;
+
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 7) //Make it check for player tag instead when a tag for player is implemented
+        if (collision.gameObject.tag == "Player") //Make it check for player tag instead when a tag for player is implemented
         {
             Die();
             //Insert method to damage player here
+        }
+
+        if (collision.gameObject.layer == 9)
+        {
+            Die();
+
+
+            print("el dibalo");
         }
     }
 
     private void Die()
     {
+        Instantiate(explosion, transform.position, Quaternion.identity);
         Destroy(this.gameObject); //Make this return to pool instead of destroying
     }
 

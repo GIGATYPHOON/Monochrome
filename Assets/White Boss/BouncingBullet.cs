@@ -17,7 +17,7 @@ public class BouncingBullet : MonoBehaviour
 
     private Rigidbody2D rigidbody2D;
 
-    private void Start()
+    private void OnEnable()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
         MoveBullet();
@@ -43,18 +43,30 @@ public class BouncingBullet : MonoBehaviour
     {
         if (collision.transform.tag == "Player")
         {
-            collision.transform.GetComponent<Entity>()?.LoseHP(3.0f);
-            Destroy(this.gameObject); //To be changed to destroy over network
+            collision.transform.GetComponent<Entity>()?.LoseHP(2.0f);
+            bulletdies(); //To be changed to destroy over network
         }
 
         if (currentBounces >= maxBounces)
         {
-            Destroy(this.gameObject); //To be changed to destroy over network
+            bulletdies();//To be changed to destroy over network
+        }
+
+        if(rigidbody2D.velocity == Vector2.zero)
+        {
+
+            bulletdies();
         }
 
         if (collision.gameObject.layer == 6 || collision.gameObject.layer == 9)
         {
             currentBounces++;
         }
+    }
+
+    private void bulletdies()
+    {
+        this.gameObject.SetActive(false);
+        currentBounces = 0;
     }
 }
