@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
+using TMPro.Examples;
 
 public class PlayerScript : MonoBehaviourPunCallbacks
 {
@@ -56,7 +57,10 @@ public class PlayerScript : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        this.GetComponentInChildren<Camera>().enabled = true;
+        if (!photonView.IsMine)
+            return;
+
+        this.GetComponent<Camera>().enabled = true;
 
 
         facingright = startsright;
