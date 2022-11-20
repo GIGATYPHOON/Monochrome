@@ -135,11 +135,17 @@ public class WhiteBoss : MonoBehaviour
                 break;
             case 3:
 
-                    //To-do: raycast to player position with distance to check if we want to run laser
-                    LaserCheck();
-                    
+                //To-do: raycast to player position with distance to check if we want to run laser
+                foreach (Transform player in playerList)
+                {
 
-                  GetComponent<SpriteRenderer>().sprite = phase3sprite;
+                    if (Physics2D.Raycast(transform.position, player.position - this.transform.position, 5.0f, bulletMask))
+                    {
+                        LaserCheck();
+                    }
+                }
+                
+                GetComponent<SpriteRenderer>().sprite = phase3sprite;
 
                 whiteavoidanceobject.gameObject.SetActive(true);
                 this.transform.position = whiteavoidanceobject.transform.position;
