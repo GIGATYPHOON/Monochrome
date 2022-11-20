@@ -58,7 +58,12 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     void Start()
     {
         if (!photonView.IsMine)
+        {
+            this.GetComponent<Camera>().enabled = false;
+
             return;
+        }
+
 
         this.GetComponent<Camera>().enabled = true;
 
