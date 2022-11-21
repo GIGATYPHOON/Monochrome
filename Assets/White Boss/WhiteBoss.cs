@@ -102,7 +102,7 @@ public class WhiteBoss : MonoBehaviour
             phase = 2;
             
         }
-        if (GetComponent<Entity>().returnHP() < 51)
+        if (GetComponent<Entity>().returnHP()/100f < 0.4f)
         {
            
             invincible = false;
@@ -122,6 +122,7 @@ public class WhiteBoss : MonoBehaviour
                 GetComponent<SpriteRenderer>().sprite = phase1sprite;
                 whiteavoidanceobject.gameObject.transform.position = this.transform.position;
                 whiteavoidanceobject.gameObject.SetActive(false);
+                whiteauraobject.transform.localScale = new Vector3(17f, 17f, 1f);
                 break;
             case 2:
                 whiteavoidanceobject.gameObject.SetActive(true);
@@ -132,6 +133,7 @@ public class WhiteBoss : MonoBehaviour
                 this.transform.position = whiteavoidanceobject.transform.position;
 
                 GetComponent<SpriteRenderer>().sprite = phase2sprite;
+                missileCooldown = 7f;
 
                 break;
             case 3:
@@ -140,17 +142,22 @@ public class WhiteBoss : MonoBehaviour
                 foreach (Transform player in playerList)
                 {
 
-                    if (Physics2D.Raycast(transform.position, player.position - this.transform.position, ProximityCheck, bulletMask))
+                    if (Vector3.Distance(player.position, this.transform.position) < 9f)
                     {
-                        LaserCheck();
+                        whiteauraobject.SetActive(true);
+                    }
+                    else
+                    {
+                        whiteauraobject.SetActive(false);
                     }
                 }
                 
                 GetComponent<SpriteRenderer>().sprite = phase3sprite;
-
+                whiteauraobject.transform.localScale = new Vector3(9f, 9f, 1f);
                 whiteavoidanceobject.gameObject.SetActive(true);
                 this.transform.position = whiteavoidanceobject.transform.position;
                 canFireBullets = true;
+                missileCooldown = 5f;
                 break;
         };
         
