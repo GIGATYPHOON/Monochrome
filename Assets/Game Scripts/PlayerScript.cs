@@ -85,7 +85,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     void Update()
     {
         photonView.RPC("Shoot_RPC", RpcTarget.All);
-
+        //wow
         if (!photonView.IsMine)
             return;
 
