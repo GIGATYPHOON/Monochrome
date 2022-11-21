@@ -84,7 +84,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        photonView.RPC("RPC_Shoot", RpcTarget.All);
+        photonView.RPC("Shoot_RPC", RpcTarget.All);
 
         if (!photonView.IsMine)
             return;
