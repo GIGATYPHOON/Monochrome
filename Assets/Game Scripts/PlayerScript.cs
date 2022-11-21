@@ -241,6 +241,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
                 shotdelay = shotdelayset;
                 //shotstaken += 1;
             }
+            this.photonView.RPC("Fire1", RpcTarget.Others);
         }
 
 
