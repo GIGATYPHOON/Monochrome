@@ -98,9 +98,9 @@ public class PlayerShotScript : MonoBehaviour
             
         }
 
-        if (collision.gameObject.tag == "Player" && isreflected == true)
+        if (collision.gameObject.tag == "Player")
         {
-            collision.gameObject.GetComponent<Entity>().LoseHP(1f);
+            collision.gameObject.GetComponent<Entity>().LoseHP(10f);
             bulletdies();
         }
 
