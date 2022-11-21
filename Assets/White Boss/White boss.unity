@@ -2656,7 +2656,7 @@ MonoBehaviour:
   bulletspawn: {fileID: 855812206}
   bulletspread: 3
   bulletcount: 0
-  bulletcountlimit: 12
+  bulletcountlimit: 6
   barragetimer: 3
   currentbarragetimer: 0
   canFireBullets: 1
