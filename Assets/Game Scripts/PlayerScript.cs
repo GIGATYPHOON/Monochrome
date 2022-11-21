@@ -48,7 +48,6 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     private float reload = 50f;
     private float reloadtimer = 50f;
 
-    [SerializeField]
     private bool attacking = false;
 
     private int jumpcharges = 1;
@@ -82,7 +81,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-
+        photonView.RPC("Shoot", RpcTarget.All);
         if (!photonView.IsMine)
             return;
 
@@ -93,6 +92,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
         }
 
 
+        
         Shoot();
         Jump();
     }
@@ -216,21 +216,11 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     }
 
 
-
+    [PunRPC]
     void Shoot()
     {
 
-        if (Input.GetButton("Fire1") && /*shotstaken < shotlimit &&*/ shotdelay <= 0)
-        {
-            attacking = true;
-        }
-        else
-        {
-            attacking = false;
-        }
-
-
-        if(attacking == true)
+        if(Input.GetButton("Fire1") && /*shotstaken < shotlimit &&*/ shotdelay <= 0)
         {
             GameObject pooledBullet = ObjectPoolManager.Instance.GetPooledObject(bulletId);
             if (pooledBullet != null)
@@ -250,16 +240,19 @@ public class PlayerScript : MonoBehaviourPunCallbacks
 
                 //Enable the gameObject
                 //pooledBullet.GetComponent<PlayerShotScript>().speedadd = this.GetComponent<Rigidbody2D>().velocity.x;
-                pooledBulleta = pooledBullet;
+
                 pooledBullet.GetComponent<PlayerShotScript>().playershooting = this.gameObject;
                 pooledBullet.SetActive(true);
 
-                //this.photonView.RPC("Shoot_RPC", RpcTarget.Others);
+                this.photonView.RPC("Shoot_RPC", RpcTarget.Others);
 
                 shotdelay = shotdelayset;
                 //shotstaken += 1;
             }
         }
+
+
+
 
         if (shotdelay > 0)
         {
@@ -283,24 +276,24 @@ public class PlayerScript : MonoBehaviourPunCallbacks
         //}
     }
 
-    //private void Shoot_RPC()
-    //{
-    //    pooledBulleta.SetActive(true);
-    //}
-
-
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    private void Shoot_RPC()
     {
-        if (stream.IsWriting)
-        {
-            // We own this player: send the others our data
-            stream.SendNext(attacking);
-        }
-        else
-        {
-            // Network player, receive data
-            attacking = (bool)stream.ReceiveNext();
-        }
+        pooledBulleta.SetActive(true);
     }
+
+
+    //public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    //{
+    //    if (stream.IsWriting)
+    //    {
+    //        // We own this player: send the others our data
+    //        stream.SendNext(attacking);
+    //    }
+    //    else
+    //    {
+    //        // Network player, receive data
+    //        attacking = (bool)stream.ReceiveNext();
+    //    }
+    //}
 
 }
