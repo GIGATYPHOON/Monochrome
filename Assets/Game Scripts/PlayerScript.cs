@@ -278,6 +278,8 @@ public class PlayerScript : MonoBehaviourPunCallbacks
         //}
     }
 
+
+    [PunRPC]
     private void Shoot_RPC( )
     {
         if(Input.GetButton("Fire1"))
