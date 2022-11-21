@@ -40,6 +40,8 @@ public class PlayerScript : MonoBehaviour
 
     private bool attacking = false;
 
+    private int jumpcharges = 1;
+
     void Start()
     {
         facingright = startsright;
@@ -121,7 +123,7 @@ public class PlayerScript : MonoBehaviour
 
         if (groundchecker.GetComponent<GroundChecker>().onground == true && Input.GetButtonDown("Jump"))
         {
-            groundchecker.GetComponent<GroundChecker>().onground = false;
+
             GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpheight * 100f, ForceMode2D.Force);
         }
 
@@ -140,6 +142,17 @@ public class PlayerScript : MonoBehaviour
         {
             GetComponent<Rigidbody2D>().AddForce(Vector3.down * 80f / 6f, ForceMode2D.Force);
         }
+
+        if (groundchecker.GetComponent<GroundChecker>().onground  == false && Input.GetButtonDown("Jump") && jumpcharges == 1)
+        {
+            jumpcharges -= 1;
+            GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpheight * 100f, ForceMode2D.Force);
+        }
+
+        if (groundchecker.GetComponent<GroundChecker>().onground)
+        {
+            jumpcharges = 1;
+        }
     }
 
 
@@ -156,13 +169,13 @@ public class PlayerScript : MonoBehaviour
 
         if (facingright == true)
         {
-            directionface.GetComponent<SpriteRenderer>().flipY = false;
+            directionface.GetComponent<SpriteRenderer>().flipX = true;
             bulletsource.transform.localPosition = new Vector2(0.855f, 0);
         }
         else
         {
 
-            directionface.GetComponent<SpriteRenderer>().flipY = true;
+            directionface.GetComponent<SpriteRenderer>().flipX =  false;
             bulletsource.transform.localPosition = new Vector2(-0.855f, 0);
         }
     }
