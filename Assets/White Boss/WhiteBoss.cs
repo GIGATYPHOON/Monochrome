@@ -9,7 +9,8 @@ public class WhiteBoss : MonoBehaviour
    
     [SerializeField]
     private GameObject shield;
-
+    [SerializeField]
+    private float ProximityCheck = 0.5f;
     [SerializeField]
     private int phase = 1;
     #region spriteSerial
@@ -139,7 +140,7 @@ public class WhiteBoss : MonoBehaviour
                 foreach (Transform player in playerList)
                 {
 
-                    if (Physics2D.Raycast(transform.position, player.position - this.transform.position, 5.0f, bulletMask))
+                    if (Physics2D.Raycast(transform.position, player.position - this.transform.position, ProximityCheck, bulletMask))
                     {
                         LaserCheck();
                     }
