@@ -116,7 +116,7 @@ public class PlayerShotScript : MonoBehaviour
 
     public void reflect()
     {
-        setvelocity = (Vector3.Normalize(GameObject.Find("Player").transform.position - this.transform.position) * 12f);
+        //setvelocity = (Vector3.Normalize(GameObject.Find("Player").transform.position - this.transform.position) * 12f);
         isreflected = true;
 
     }

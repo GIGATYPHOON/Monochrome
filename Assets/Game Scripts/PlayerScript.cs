@@ -3,9 +3,14 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun.UtilityScripts;
+using Photon.Realtime;
+using TMPro.Examples;
 
-public class PlayerScript : MonoBehaviour
+public class PlayerScript : MonoBehaviourPunCallbacks
 {
+    private PhotonView photonview;
+
     [SerializeField]
     private bool startsright;
 
@@ -29,6 +34,9 @@ public class PlayerScript : MonoBehaviour
     [SerializeField]
     private float jumpheight = 10f;
 
+    [SerializeField]
+    private GameObject camsforplayer;
+
     private int shotlimit = 8;
     private int shotstaken = 0;
 
@@ -42,8 +50,25 @@ public class PlayerScript : MonoBehaviour
 
     private int jumpcharges = 1;
 
+
+    private void OnEnable()
+    {
+        base.OnEnable();
+
+        if (!photonView.IsMine)
+            return;
+
+        camsforplayer.gameObject.SetActive(true);
+    }
+
     void Start()
     {
+
+        if (!photonView.IsMine)
+            return;
+
+
+
         facingright = startsright;
 
         reload = reloadtimer;
@@ -54,7 +79,10 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
 
-        if(attacking == false)
+        if (!photonView.IsMine)
+            return;
+
+        if (attacking == false)
         {
 
             Facing();
@@ -72,6 +100,9 @@ public class PlayerScript : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!photonView.IsMine)
+            return;
+
         Movement();
     }
 

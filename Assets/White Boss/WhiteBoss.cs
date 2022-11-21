@@ -92,15 +92,17 @@ public class WhiteBoss : MonoBehaviour
     private GameObject bulletObj;
     #endregion
 
-    public List<Transform> playerList; //To be removed when Photon player list is implemented
+    public GameObject[] playerList; //To be removed when Photon player list is implemented
 
     void Start()
     {
-        
+        playerList = GameObject.FindGameObjectsWithTag("Player");
     }
 
     private void OnEnable()
     {
+
+
         InvokeRepeating("FireBouncingBullets", 0.001f, bulletFireRate);
     }
 
@@ -155,10 +157,10 @@ public class WhiteBoss : MonoBehaviour
             case 3:
 
                 //To-do: raycast to player position with distance to check if we want to run laser
-                foreach (Transform player in playerList)
+                foreach (GameObject player in playerList)
                 {
 
-                    if (Vector3.Distance(player.position, this.transform.position) < 7f)
+                    if (Vector3.Distance(player.transform.position, this.transform.position) < 7f)
                     {
                         whiteauraobject.SetActive(true);
                     }
@@ -225,9 +227,9 @@ public class WhiteBoss : MonoBehaviour
         if (!canFireBullets)
             return;
 
-        foreach (Transform player in playerList)
+        foreach (GameObject player in playerList)
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, player.position - this.transform.position, Mathf.Infinity, bulletMask);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, player.transform.position - this.transform.position, Mathf.Infinity, bulletMask);
             if (hit)
             {
 
@@ -248,7 +250,7 @@ public class WhiteBoss : MonoBehaviour
 
                     if(bullet != null && bulletcount < bulletcountlimit)
                     {
-                        Vector3 spreadplayerpos = new Vector2(player.position.x + Random.Range(-bulletspread, bulletspread), player.position.y + Random.Range(-bulletspread, bulletspread));
+                        Vector3 spreadplayerpos = new Vector2(player.transform.position.x + Random.Range(-bulletspread, bulletspread), player.transform.position.y + Random.Range(-bulletspread, bulletspread));
 
 
                         bullet.GetComponent<BouncingBullet>().SetDirection(spreadplayerpos - transform.position);
@@ -285,10 +287,10 @@ public class WhiteBoss : MonoBehaviour
 
         currentMissileCooldown = missileCooldown;
 
-        foreach (Transform player in playerList)
+        foreach (GameObject player in playerList)
         {
             GameObject missile = GameObject.Instantiate(missileObj, transform.position, Quaternion.identity); //To be replaced with PhotonNetwork.Instantiate
-            missile.GetComponent<WhiteBossMissile>().SetTarget(player);
+            missile.GetComponent<WhiteBossMissile>().SetTarget(player.transform);
         }
     }
 
