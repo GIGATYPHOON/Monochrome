@@ -41,6 +41,7 @@ MonoBehaviour:
   - RespawnSpaceship
   - PhotonShoot
   - Shoot
+  - Shoot_RPC
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

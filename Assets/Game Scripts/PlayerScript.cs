@@ -84,7 +84,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        photonView.RPC("Shoot_RPC", RpcTarget.All);
+
         //wow
         if (!photonView.IsMine)
             return;
@@ -95,7 +95,15 @@ public class PlayerScript : MonoBehaviourPunCallbacks
             Facing();
         }
 
-        Shoot();
+        if(Input.GetButton("Fire1"))
+        {
+            photonView.RPC("Shoot", RpcTarget.All,true);
+        }
+        else
+        {
+            photonView.RPC("Shoot", RpcTarget.All, false);
+        }
+
         Jump();
     }
 
@@ -218,8 +226,8 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     }
 
 
-
-    void Shoot()
+    [PunRPC]
+    void Shoot(bool isshooting)
     {
 
         if(isshooting && /*shotstaken < shotlimit &&*/ shotdelay <= 0)
@@ -279,18 +287,10 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     }
 
 
-    [PunRPC]
+
     private void Shoot_RPC( )
     {
-        if(Input.GetButton("Fire1"))
-        {
-            isshooting = true;
-
-        }
-        else
-        {
-            isshooting = false;
-        }
+        
 
 
     }
