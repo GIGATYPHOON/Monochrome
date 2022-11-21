@@ -212,6 +212,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     }
 
 
+
     void Shoot()
     {
 
@@ -241,18 +242,11 @@ public class PlayerScript : MonoBehaviourPunCallbacks
                 shotdelay = shotdelayset;
                 //shotstaken += 1;
             }
-            this.photonView.RPC("Fire1", RpcTarget.Others);
+            this.photonView.RPC("PhotonShoot", RpcTarget.Others);
         }
 
 
-        if(Input.GetButton("Fire1"))
-        {
-            attacking = true;
-        }
-        else
-        {
-            attacking = false;
-        }
+
 
 
         if (shotdelay > 0)
@@ -275,5 +269,20 @@ public class PlayerScript : MonoBehaviourPunCallbacks
         //    shotstaken = 0;
         //    reload = reloadtimer;
         //}
+    }
+
+
+
+    [PunRPC]
+    void PhotonShoot()
+    {
+        if (Input.GetButton("Fire1"))
+        {
+            attacking = true;
+        }
+        else
+        {
+            attacking = false;
+        }
     }
 }
