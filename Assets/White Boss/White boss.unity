@@ -2660,7 +2660,7 @@ MonoBehaviour:
   barragetimer: 3
   currentbarragetimer: 0
   canFireBullets: 1
-  bulletFireRate: -1
+  bulletFireRate: 0.0001
   bulletObj: {fileID: 371484569217187556, guid: 4f30823ece9824243a4fe39132bb58d5, type: 3}
   playerList:
   - {fileID: 0}
