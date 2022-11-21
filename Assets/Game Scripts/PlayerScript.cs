@@ -52,6 +52,8 @@ public class PlayerScript : MonoBehaviourPunCallbacks
 
     private int jumpcharges = 1;
 
+    private bool isshooting = false;
+
 
 
     private void OnEnable()
@@ -81,9 +83,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        if (photonview.IsMine)
-            Shoot();
-
+        Shoot();
 
         if (!photonView.IsMine)
             return;
