@@ -253,7 +253,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
                 pooledBullet.GetComponent<PlayerShotScript>().playershooting = this.gameObject;
                 pooledBullet.SetActive(true);
 
-                this.photonView.RPC("Shoot_RPC", RpcTarget.Others);
+                //this.photonView.RPC("Shoot_RPC", RpcTarget.Others);
 
                 shotdelay = shotdelayset;
                 //shotstaken += 1;
@@ -282,10 +282,10 @@ public class PlayerScript : MonoBehaviourPunCallbacks
         //}
     }
 
-    private void Shoot_RPC()
-    {
-        pooledBulleta.SetActive(true);
-    }
+    //private void Shoot_RPC()
+    //{
+    //    pooledBulleta.SetActive(true);
+    //}
 
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
