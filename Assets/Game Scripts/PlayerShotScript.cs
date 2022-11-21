@@ -1,9 +1,14 @@
 using System.Collections;
+using Photon.Pun;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun.UtilityScripts;
+using Photon.Realtime;
 
-public class PlayerShotScript : MonoBehaviour
+public class PlayerShotScript : MonoBehaviourPunCallbacks
 {
+    private PhotonView photonview;
+
     [SerializeField]
     private float shotspeed;
 
@@ -22,8 +27,6 @@ public class PlayerShotScript : MonoBehaviour
 
     private Vector3 setvelocity;
 
-
-
     void Start()
     {
 
@@ -35,7 +38,12 @@ public class PlayerShotScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.GetChild(0).Rotate(-1300f * Time.deltaTime, 0, 0);
+       // if (this.photonView.IsMine && Input.GetKeyDown(KeyCode.Q))
+      //  {
+      //      ();
+     //   }
+
+    transform.GetChild(0).Rotate(-1300f * Time.deltaTime, 0, 0);
 
         speedadd = playershooting.GetComponent<Rigidbody2D>().velocity.x;
 
