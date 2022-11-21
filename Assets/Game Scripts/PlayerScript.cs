@@ -48,6 +48,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     private float reload = 50f;
     private float reloadtimer = 50f;
 
+    [SerializeField]
     private bool attacking = false;
 
     private int jumpcharges = 1;
