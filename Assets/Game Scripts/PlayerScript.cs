@@ -81,8 +81,9 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
+        if (photonview.IsMine)
+            Shoot();
 
-        Shoot();
 
         if (!photonView.IsMine)
             return;
@@ -220,7 +221,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     void Shoot()
     {
 
-        if(Input.GetButton("Fire1") && /*shotstaken < shotlimit &&*/ shotdelay <= 0 && photonview.IsMine)
+        if(Input.GetButton("Fire1") && /*shotstaken < shotlimit &&*/ shotdelay <= 0)
         {
             GameObject pooledBullet = ObjectPoolManager.Instance.GetPooledObject(bulletId);
             if (pooledBullet != null)
