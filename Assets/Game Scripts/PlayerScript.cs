@@ -81,7 +81,9 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        photonView.RPC("Shoot", RpcTarget.All);
+
+        Shoot();
+
         if (!photonView.IsMine)
             return;
 
@@ -92,8 +94,6 @@ public class PlayerScript : MonoBehaviourPunCallbacks
         }
 
 
-        
-        Shoot();
         Jump();
     }
 
@@ -216,11 +216,11 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     }
 
 
-    [PunRPC]
+
     void Shoot()
     {
 
-        if(Input.GetButton("Fire1") && /*shotstaken < shotlimit &&*/ shotdelay <= 0)
+        if(Input.GetButton("Fire1") && /*shotstaken < shotlimit &&*/ shotdelay <= 0 && photonview.IsMine)
         {
             GameObject pooledBullet = ObjectPoolManager.Instance.GetPooledObject(bulletId);
             if (pooledBullet != null)
@@ -244,7 +244,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
                 pooledBullet.GetComponent<PlayerShotScript>().playershooting = this.gameObject;
                 pooledBullet.SetActive(true);
 
-                this.photonView.RPC("Shoot_RPC", RpcTarget.Others);
+                
 
                 shotdelay = shotdelayset;
                 //shotstaken += 1;
@@ -276,9 +276,10 @@ public class PlayerScript : MonoBehaviourPunCallbacks
         //}
     }
 
-    private void Shoot_RPC()
+    private void Shoot_RPC( )
     {
-        pooledBulleta.SetActive(true);
+        
+
     }
 
 
