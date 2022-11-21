@@ -3,6 +3,7 @@ using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Windows.Speech;
 
 public class WhiteBoss : MonoBehaviour
 {
@@ -23,10 +24,6 @@ public class WhiteBoss : MonoBehaviour
     #endregion
 
 
-    [SerializeField]
-    private float barragecooldown;
-    [SerializeField]
-    private float currentbarragecooldown;
 
     #region Lasers
 
@@ -56,6 +53,8 @@ public class WhiteBoss : MonoBehaviour
     [SerializeField]
     private GameObject missileObj;
 
+
+
    
 
     [SerializeField]
@@ -70,7 +69,21 @@ public class WhiteBoss : MonoBehaviour
     [SerializeField]
     private GameObject bulletspawn;
 
-    
+    [SerializeField]
+    private float bulletspread;
+
+    [SerializeField]
+    private int bulletcount;
+
+    [SerializeField]
+    private int bulletcountlimit;
+
+    [SerializeField]
+    private float barragetimer;
+    [SerializeField]
+    private float currentbarragetimer;
+
+
     [SerializeField]
     private bool canFireBullets;
     [SerializeField]
@@ -145,7 +158,7 @@ public class WhiteBoss : MonoBehaviour
                 foreach (Transform player in playerList)
                 {
 
-                    if (Vector3.Distance(player.position, this.transform.position) < 9f)
+                    if (Vector3.Distance(player.position, this.transform.position) < 7f)
                     {
                         whiteauraobject.SetActive(true);
                     }
@@ -165,7 +178,20 @@ public class WhiteBoss : MonoBehaviour
         };
         
  
-        TickMissleCooldown();      
+        TickMissleCooldown();  
+
+        if(bulletcount>= bulletcountlimit)
+        {
+            currentbarragetimer -= Time.deltaTime;
+        }
+
+        if(currentbarragetimer <= 0f)
+        {
+            currentbarragetimer = barragetimer;
+            bulletcount = 0;
+
+        }
+
     }
 
 
@@ -189,6 +215,11 @@ public class WhiteBoss : MonoBehaviour
         }
     }
 
+
+
+
+
+
     private void FireBouncingBullets()
     {
         if (!canFireBullets)
@@ -206,18 +237,32 @@ public class WhiteBoss : MonoBehaviour
 
                     Debug.DrawRay(this.transform.position, hit.point - new Vector2(transform.position.x, transform.position.y), Color.green);
                     bulletspawnrotater.transform.rotation = Quaternion.FromToRotation(this.transform.up, hit.point - new Vector2(transform.position.x, transform.position.y));
-                    bulletspawnrotater.transform.Rotate(0, 0, Random.Range(-15f, 15f));
+
 
                     GameObject bullet = ObjectPoolManager.Instance.GetPooledObject(bouncingbulletID);
 
 
-                    if(bullet != null)
+
+
+
+
+                    if(bullet != null && bulletcount < bulletcountlimit)
                     {
-                        bullet.GetComponent<BouncingBullet>().SetDirection(player.position - transform.position);
+                        Vector3 spreadplayerpos = new Vector2(player.position.x + Random.Range(-bulletspread, bulletspread), player.position.y + Random.Range(-bulletspread, bulletspread));
+
+
+                        bullet.GetComponent<BouncingBullet>().SetDirection(spreadplayerpos - transform.position);
                         bullet.transform.position = bulletspawn.transform.position;
                         bullet.transform.rotation = bulletspawn.transform.rotation;
                         bullet.SetActive(true);
+                        bulletcount += 1;
+
                     }
+
+
+
+                    
+
 
                     break;
                 }
@@ -248,21 +293,6 @@ public class WhiteBoss : MonoBehaviour
     }
 
 
-
-
-    public void FireBarrage()
-    {
-        if (currentbarragecooldown > 0)
-            return;
-
-        currentbarragecooldown = barragecooldown;
-
-        foreach (Transform player in playerList)
-        {
-            GameObject missile = GameObject.Instantiate(missileObj, transform.position, Quaternion.identity); //To be replaced with PhotonNetwork.Instantiate
-            missile.GetComponent<WhiteBossMissile>().SetTarget(player);
-        }
-    }
 
 
     private void LaserCheck()
