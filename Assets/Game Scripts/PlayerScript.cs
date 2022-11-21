@@ -242,7 +242,6 @@ public class PlayerScript : MonoBehaviourPunCallbacks
                 shotdelay = shotdelayset;
                 //shotstaken += 1;
             }
-            this.photonView.RPC("PhotonShoot", RpcTarget.Others);
         }
 
 
@@ -272,17 +271,18 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     }
 
 
-
-    [PunRPC]
-    void PhotonShoot()
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if (Input.GetButton("Fire1"))
+        if (stream.IsWriting)
         {
-            attacking = true;
+            // We own this player: send the others our data
+            stream.SendNext(attacking);
         }
         else
         {
-            attacking = false;
+            // Network player, receive data
+            attacking = (bool)stream.ReceiveNext();
         }
     }
+
 }
