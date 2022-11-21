@@ -23,7 +23,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
 
     [SerializeField]
     private GameObject playerbullet;
-    public GameObject pooledBullet;
+    public GameObject pooledBulleta;
 
     [SerializeField]
     private string bulletId;
@@ -219,7 +219,17 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     void Shoot()
     {
 
-        if(Input.GetButton("Fire1") && /*shotstaken < shotlimit &&*/ shotdelay <= 0)
+        if (Input.GetButton("Fire1") && /*shotstaken < shotlimit &&*/ shotdelay <= 0)
+        {
+            attacking = true;
+        }
+        else
+        {
+            attacking = false;
+        }
+
+
+        if(attacking == true)
         {
             GameObject pooledBullet = ObjectPoolManager.Instance.GetPooledObject(bulletId);
             if (pooledBullet != null)
@@ -239,17 +249,16 @@ public class PlayerScript : MonoBehaviourPunCallbacks
 
                 //Enable the gameObject
                 //pooledBullet.GetComponent<PlayerShotScript>().speedadd = this.GetComponent<Rigidbody2D>().velocity.x;
+                pooledBulleta = pooledBullet;
                 pooledBullet.GetComponent<PlayerShotScript>().playershooting = this.gameObject;
                 pooledBullet.SetActive(true);
+
                 this.photonView.RPC("Shoot_RPC", RpcTarget.Others);
 
                 shotdelay = shotdelayset;
                 //shotstaken += 1;
             }
         }
-
-
-
 
         if (shotdelay > 0)
         {
@@ -275,7 +284,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
 
     private void Shoot_RPC()
     {
-        pooledBullet.SetActive(true);
+        pooledBulleta.SetActive(true);
     }
 
 
