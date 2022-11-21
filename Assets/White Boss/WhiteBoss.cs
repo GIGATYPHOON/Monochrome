@@ -23,7 +23,10 @@ public class WhiteBoss : MonoBehaviour
     #endregion
 
 
-    
+    [SerializeField]
+    private float barragecooldown;
+    [SerializeField]
+    private float currentbarragecooldown;
 
     #region Lasers
 
@@ -203,6 +206,7 @@ public class WhiteBoss : MonoBehaviour
 
                     Debug.DrawRay(this.transform.position, hit.point - new Vector2(transform.position.x, transform.position.y), Color.green);
                     bulletspawnrotater.transform.rotation = Quaternion.FromToRotation(this.transform.up, hit.point - new Vector2(transform.position.x, transform.position.y));
+                    bulletspawnrotater.transform.Rotate(0, 0, Random.Range(-15f, 15f));
 
                     GameObject bullet = ObjectPoolManager.Instance.GetPooledObject(bouncingbulletID);
 
@@ -242,6 +246,25 @@ public class WhiteBoss : MonoBehaviour
             missile.GetComponent<WhiteBossMissile>().SetTarget(player);
         }
     }
+
+
+
+
+    public void FireBarrage()
+    {
+        if (currentbarragecooldown > 0)
+            return;
+
+        currentbarragecooldown = barragecooldown;
+
+        foreach (Transform player in playerList)
+        {
+            GameObject missile = GameObject.Instantiate(missileObj, transform.position, Quaternion.identity); //To be replaced with PhotonNetwork.Instantiate
+            missile.GetComponent<WhiteBossMissile>().SetTarget(player);
+        }
+    }
+
+
     private void LaserCheck()
     {
        

@@ -43,7 +43,9 @@ public class BouncingBullet : MonoBehaviour
     {
         if (collision.transform.tag == "Player")
         {
+            this.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
             collision.transform.GetComponent<Entity>()?.LoseHP(2.0f);
+
             bulletdies(); //To be changed to destroy over network
         }
 
@@ -64,7 +66,7 @@ public class BouncingBullet : MonoBehaviour
         }
     }
 
-    private void bulletdies()
+    public void bulletdies()
     {
         this.gameObject.SetActive(false);
         currentBounces = 0;
