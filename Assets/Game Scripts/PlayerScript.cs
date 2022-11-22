@@ -107,7 +107,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
         Shoot();
         Jump();
 
-        photonView.RPC("Face_RPC", RpcTarget.AllBuffered, Input.GetAxisRaw("Horizontal"));
+        photonView.RPC("Face_RPC", RpcTarget.AllBuffered,facingright);
 
     }
 
@@ -207,9 +207,23 @@ public class PlayerScript : MonoBehaviourPunCallbacks
 
     void Facing()
     {
+        if (Input.GetAxisRaw("Horizontal") > 0)
+        {
+            facingright = true;
+        }
+        if (Input.GetAxisRaw("Horizontal") < 0)
+        {
+            facingright = false;
+        }
 
 
-        if (facingright == true)
+    }
+
+    [PunRPC]
+    void Face_RPC(bool rpcfacingright)
+    {
+
+        if (rpcfacingright == true)
         {
             directionface.GetComponent<SpriteRenderer>().flipX = true;
             bulletsource.transform.localPosition = new Vector2(0.855f, 0);
@@ -217,21 +231,8 @@ public class PlayerScript : MonoBehaviourPunCallbacks
         else
         {
 
-            directionface.GetComponent<SpriteRenderer>().flipX =  false;
+            directionface.GetComponent<SpriteRenderer>().flipX = false;
             bulletsource.transform.localPosition = new Vector2(-0.855f, 0);
-        }
-    }
-
-    [PunRPC]
-    void Face_RPC(float inputaxis)
-    {
-        if (inputaxis > 0)
-        {
-            facingright = true;
-        }
-        if (inputaxis < 0)
-        {
-            facingright = false;
         }
     }
 
@@ -272,8 +273,10 @@ public class PlayerScript : MonoBehaviourPunCallbacks
 
 
     [PunRPC]
-    private void Shoot_RPC( )
+    private void Shoot_RPC(bool rpc_facingright )
     {
+        rpc_facingright = facingright;
+
 
         GameObject pooledBullet = ObjectPoolManager.Instance.GetPooledObject(bulletId);
         if (pooledBullet != null)
@@ -281,7 +284,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
             //Modify the bullet's position and rotation
             pooledBullet.transform.position = bulletsource.transform.position;
             pooledBullet.transform.rotation = bulletsource.transform.rotation;
-            if (facingright == true)
+            if (rpc_facingright == true)
             {
 
                 pooledBullet.GetComponent<PlayerShotScript>().startright = true;
