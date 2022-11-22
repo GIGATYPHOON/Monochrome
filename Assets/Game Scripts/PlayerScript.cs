@@ -108,7 +108,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
         Shoot();
         Jump();
 
-        photonView.RPC("Face_RPC", RpcTarget.AllBuffered,facingright);
+        photonView.RPC("Face_RPC", RpcTarget.All,facingright);
 
     }
 

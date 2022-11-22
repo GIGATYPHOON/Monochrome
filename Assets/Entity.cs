@@ -31,7 +31,7 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     void Update()
     {
 
-            photonView.RPC("HPBarSync", RpcTarget.AllBuffered, HP, MaxHP);
+            photonView.RPC("HPBarSync", RpcTarget.All, HP, MaxHP);
 
         if(playercontrolled)
         {
