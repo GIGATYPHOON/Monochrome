@@ -6,6 +6,7 @@ using UnityEngine;
 using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using TMPro.Examples;
+using System.Linq;
 
 public class PlayerScript : MonoBehaviourPunCallbacks
 {
@@ -62,11 +63,15 @@ public class PlayerScript : MonoBehaviourPunCallbacks
         base.OnEnable();
 
 
+
         if (!photonView.IsMine)
             return;
 
 
         camsforplayer.gameObject.SetActive(true);
+
+
+
     }
 
     void Start()
@@ -324,4 +329,10 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     //    }
     //}
 
+
+    private void ShowInTheRoom()
+    {
+
+
+    }
 }

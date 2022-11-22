@@ -171,7 +171,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f89b7dc6f8b1854d92d8d3fb5c5f52e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerspawns: {fileID: 83996808}
+  spawns:
+  - {fileID: 1800136249}
+  - {fileID: 421082767}
+  - {fileID: 960734498}
+  - {fileID: 329988669}
 --- !u!1 &92189904
 GameObject:
   m_ObjectHideFlags: 0
@@ -1239,7 +1243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55f877223028b0442995e80b64fa93a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPresist: 0
+  isPresist: 1
   playerSprites:
   - {fileID: 0}
   - {fileID: 0}
