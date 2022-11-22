@@ -42,6 +42,8 @@ MonoBehaviour:
   - PhotonShoot
   - Shoot
   - Shoot_RPC
+  - Face_RPC
+  - Facing
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

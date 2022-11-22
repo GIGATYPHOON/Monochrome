@@ -43,6 +43,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     private int shotstaken = 0;
 
     private float shotdelayset = 0.8f;
+    [SerializeField]
     private float shotdelay = 0f;
 
     private float reload = 50f;
@@ -89,22 +90,25 @@ public class PlayerScript : MonoBehaviourPunCallbacks
         if (!photonView.IsMine)
             return;
 
-        if (attacking == false)
+        if (isshooting == false)
         {
-
             Facing();
         }
 
         if(Input.GetButton("Fire1"))
         {
-            photonView.RPC("Shoot", RpcTarget.All,true);
+            isshooting = true;
         }
         else
         {
-            photonView.RPC("Shoot", RpcTarget.All, false);
+            isshooting = false;
         }
 
+        Shoot();
         Jump();
+
+        photonView.RPC("Face_RPC", RpcTarget.AllBuffered, Input.GetAxisRaw("Horizontal"));
+
     }
 
     private void LateUpdate()
@@ -203,14 +207,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
 
     void Facing()
     {
-        if (Input.GetAxisRaw("Horizontal") > 0)
-        {
-            facingright = true;
-        }
-        if (Input.GetAxisRaw("Horizontal") < 0)
-        {
-            facingright = false;
-        }
+
 
         if (facingright == true)
         {
@@ -225,40 +222,27 @@ public class PlayerScript : MonoBehaviourPunCallbacks
         }
     }
 
-
     [PunRPC]
-    void Shoot(bool isshooting)
+    void Face_RPC(float inputaxis)
+    {
+        if (inputaxis > 0)
+        {
+            facingright = true;
+        }
+        if (inputaxis < 0)
+        {
+            facingright = false;
+        }
+    }
+
+
+    void Shoot()
     {
 
         if(isshooting && /*shotstaken < shotlimit &&*/ shotdelay <= 0)
         {
-            GameObject pooledBullet = ObjectPoolManager.Instance.GetPooledObject(bulletId);
-            if (pooledBullet != null)
-            {
-                //Modify the bullet's position and rotation
-                pooledBullet.transform.position = bulletsource.transform.position;
-                pooledBullet.transform.rotation = bulletsource.transform.rotation;
-                if (facingright == true)
-                {
-
-                    pooledBullet.GetComponent<PlayerShotScript>().startright = true;
-                }
-                else
-                {
-                    pooledBullet.GetComponent<PlayerShotScript>().startright = false;
-                }
-
-                //Enable the gameObject
-                //pooledBullet.GetComponent<PlayerShotScript>().speedadd = this.GetComponent<Rigidbody2D>().velocity.x;
-
-                pooledBullet.GetComponent<PlayerShotScript>().playershooting = this.gameObject;
-                pooledBullet.SetActive(true);
-
-                
-
-                shotdelay = shotdelayset;
-                //shotstaken += 1;
-            }
+            photonView.RPC("Shoot_RPC", RpcTarget.AllBuffered);
+            shotdelay = shotdelayset;
         }
 
 
@@ -287,11 +271,37 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     }
 
 
-
+    [PunRPC]
     private void Shoot_RPC( )
     {
-        
 
+        GameObject pooledBullet = ObjectPoolManager.Instance.GetPooledObject(bulletId);
+        if (pooledBullet != null)
+        {
+            //Modify the bullet's position and rotation
+            pooledBullet.transform.position = bulletsource.transform.position;
+            pooledBullet.transform.rotation = bulletsource.transform.rotation;
+            if (facingright == true)
+            {
+
+                pooledBullet.GetComponent<PlayerShotScript>().startright = true;
+            }
+            else
+            {
+                pooledBullet.GetComponent<PlayerShotScript>().startright = false;
+            }
+
+            //Enable the gameObject
+            //pooledBullet.GetComponent<PlayerShotScript>().speedadd = this.GetComponent<Rigidbody2D>().velocity.x;
+
+            pooledBullet.GetComponent<PlayerShotScript>().playershooting = this.gameObject;
+            pooledBullet.SetActive(true);
+
+
+
+
+            //shotstaken += 1;
+        }
 
     }
 
