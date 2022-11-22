@@ -60,11 +60,12 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     private void OnEnable()
     {
         base.OnEnable();
-        //this.transform.position = GameObject.Find("PlayerSpawns").transform.GetChild(PhotonView.CreatorActorNr).position;
+
 
         if (!photonView.IsMine)
             return;
 
+        this.transform.position = GameObject.Find("PlayerSpawns").transform.GetChild(PhotonNetwork.LocalPlayer.ActorNumber).position;
         camsforplayer.gameObject.SetActive(true);
     }
 
