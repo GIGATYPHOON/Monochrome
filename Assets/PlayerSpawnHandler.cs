@@ -4,10 +4,22 @@ using UnityEngine;
 
 public class PlayerSpawnHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
+    int i = 0;
+
+    [SerializeField]
+    private GameObject playerspawns;
+
     void Start()
     {
-        
+        foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            player.transform.position = playerspawns.transform.GetChild(i).position;
+
+
+            i++;
+        }
+
+        ;
     }
 
     // Update is called once per frame
