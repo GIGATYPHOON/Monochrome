@@ -7,6 +7,8 @@ using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using TMPro.Examples;
 using System.Linq;
+using Photon.Pun.Demo.PunBasics;
+using UnityEditor;
 
 public class PlayerScript : MonoBehaviourPunCallbacks
 {
@@ -67,12 +69,26 @@ public class PlayerScript : MonoBehaviourPunCallbacks
         if (!photonView.IsMine)
             return;
 
-
         camsforplayer.gameObject.SetActive(true);
 
-
+            StartCoroutine(ExecuteAfterTime(0.1f));
 
     }
+
+
+
+    IEnumerator ExecuteAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        // Code to execute after the delay
+        print(this.GetComponent<PhotonView>().Owner.GetPlayerNumber());
+        this.transform.position = GameObject.Find("PlayerSpawns").GetComponent<PlayerSpawnHandler>().spawns[this.GetComponent<PhotonView>().Owner.GetPlayerNumber()].transform.position;
+
+    }
+
+
+
 
     void Start()
     {

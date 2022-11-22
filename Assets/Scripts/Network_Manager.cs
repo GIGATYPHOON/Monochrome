@@ -42,7 +42,7 @@ public class Network_Manager : SingletonPun<Network_Manager>
         //Instantiate a player gameObject to represent our local client
 
 
-        PhotonNetwork.Instantiate(playerPefabName, Vector3.zero, Quaternion.identity);
+        PhotonNetwork.Instantiate(playerPefabName, Vector3.up * 100f, Quaternion.identity);
 
     }
 
