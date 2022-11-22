@@ -3,9 +3,14 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun.UtilityScripts;
+using Photon.Realtime;
+using TMPro.Examples;
 
-public class PlayerScript : MonoBehaviour
+public class PlayerScript : MonoBehaviourPunCallbacks
 {
+    private PhotonView photonview;
+
     [SerializeField]
     private bool startsright;
 
@@ -18,6 +23,8 @@ public class PlayerScript : MonoBehaviour
 
     [SerializeField]
     private GameObject playerbullet;
+    public GameObject pooledBulleta;
+
     [SerializeField]
     private string bulletId;
 
@@ -28,6 +35,9 @@ public class PlayerScript : MonoBehaviour
 
     [SerializeField]
     private float jumpheight = 10f;
+
+    [SerializeField]
+    private GameObject camsforplayer;
 
     private int shotlimit = 8;
     private int shotstaken = 0;
@@ -40,8 +50,31 @@ public class PlayerScript : MonoBehaviour
 
     private bool attacking = false;
 
+    private int jumpcharges = 1;
+
+    private bool isshooting = false;
+
+
+
+    private void OnEnable()
+    {
+        base.OnEnable();
+
+        if (!photonView.IsMine)
+            return;
+
+        camsforplayer.gameObject.SetActive(true);
+    }
+
     void Start()
     {
+
+
+        if (!photonView.IsMine)
+            return;
+
+
+
         facingright = startsright;
 
         reload = reloadtimer;
@@ -52,14 +85,25 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
 
-        if(attacking == false)
+        //wow
+        if (!photonView.IsMine)
+            return;
+
+        if (attacking == false)
         {
 
             Facing();
         }
 
+        if(Input.GetButton("Fire1"))
+        {
+            photonView.RPC("Shoot", RpcTarget.All,true);
+        }
+        else
+        {
+            photonView.RPC("Shoot", RpcTarget.All, false);
+        }
 
-        Shoot();
         Jump();
     }
 
@@ -70,6 +114,9 @@ public class PlayerScript : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!photonView.IsMine)
+            return;
+
         Movement();
     }
 
@@ -121,7 +168,7 @@ public class PlayerScript : MonoBehaviour
 
         if (groundchecker.GetComponent<GroundChecker>().onground == true && Input.GetButtonDown("Jump"))
         {
-            groundchecker.GetComponent<GroundChecker>().onground = false;
+
             GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpheight * 100f, ForceMode2D.Force);
         }
 
@@ -140,11 +187,25 @@ public class PlayerScript : MonoBehaviour
         {
             GetComponent<Rigidbody2D>().AddForce(Vector3.down * 80f / 6f, ForceMode2D.Force);
         }
+
+        if (groundchecker.GetComponent<GroundChecker>().onground  == false && Input.GetButtonDown("Jump") && jumpcharges == 1)
+        {
+            jumpcharges -= 1;
+            GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpheight * 100f, ForceMode2D.Force);
+        }
+
+        if (groundchecker.GetComponent<GroundChecker>().onground)
+        {
+            jumpcharges = 1;
+        }
     }
 
 
     void Facing()
     {
+
+        if (!photonView.IsMine)
+
         if (Input.GetAxisRaw("Horizontal") > 0)
         {
             facingright = true;
@@ -156,22 +217,26 @@ public class PlayerScript : MonoBehaviour
 
         if (facingright == true)
         {
-            directionface.GetComponent<SpriteRenderer>().flipY = false;
+            directionface.GetComponent<SpriteRenderer>().flipX = true;
             bulletsource.transform.localPosition = new Vector2(0.855f, 0);
         }
         else
         {
 
-            directionface.GetComponent<SpriteRenderer>().flipY = true;
+            directionface.GetComponent<SpriteRenderer>().flipX =  false;
             bulletsource.transform.localPosition = new Vector2(-0.855f, 0);
         }
+
+        return;
+
     }
 
 
-    void Shoot()
+    [PunRPC]
+    void Shoot(bool isshooting)
     {
 
-        if(Input.GetButton("Fire1") && /*shotstaken < shotlimit &&*/ shotdelay <= 0)
+        if(isshooting && /*shotstaken < shotlimit &&*/ shotdelay <= 0)
         {
             GameObject pooledBullet = ObjectPoolManager.Instance.GetPooledObject(bulletId);
             if (pooledBullet != null)
@@ -191,8 +256,11 @@ public class PlayerScript : MonoBehaviour
 
                 //Enable the gameObject
                 //pooledBullet.GetComponent<PlayerShotScript>().speedadd = this.GetComponent<Rigidbody2D>().velocity.x;
+
                 pooledBullet.GetComponent<PlayerShotScript>().playershooting = this.gameObject;
                 pooledBullet.SetActive(true);
+
+                
 
                 shotdelay = shotdelayset;
                 //shotstaken += 1;
@@ -200,14 +268,6 @@ public class PlayerScript : MonoBehaviour
         }
 
 
-        if(Input.GetButton("Fire1"))
-        {
-            attacking = true;
-        }
-        else
-        {
-            attacking = false;
-        }
 
 
         if (shotdelay > 0)
@@ -231,4 +291,29 @@ public class PlayerScript : MonoBehaviour
         //    reload = reloadtimer;
         //}
     }
+
+
+
+    private void Shoot_RPC( )
+    {
+        
+
+
+    }
+
+
+    //public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    //{
+    //    if (stream.IsWriting)
+    //    {
+    //        // We own this player: send the others our data
+    //        stream.SendNext(attacking);
+    //    }
+    //    else
+    //    {
+    //        // Network player, receive data
+    //        attacking = (bool)stream.ReceiveNext();
+    //    }
+    //}
+
 }
