@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: 2541767816814588817}
   - component: {fileID: 7636122854286968197}
   - component: {fileID: 302003847271681675}
+  - component: {fileID: 4947359833524188845}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -242,11 +243,13 @@ MonoBehaviour:
   startsright: 1
   groundchecker: {fileID: 5296306403627008517}
   playerbullet: {fileID: 0}
+  pooledBulleta: {fileID: 0}
   bulletId: Bullet
   directionface: {fileID: 5296306401977102746}
   bulletsource: {fileID: 5296306403542224967}
   jumpheight: 27
   camsforplayer: {fileID: 3802012257482393509}
+  shotdelay: 0
 --- !u!114 &2541767816814588817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,6 +288,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 302003847271681675}
+  - {fileID: 4947359833524188845}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -303,7 +307,23 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_UseLocal: 0
+--- !u!114 &4947359833524188845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5296306403270051764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e7cb724808c322458aa4d15f5035fa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 0
+  m_TeleportEnabled: 1
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &5296306403542224967
 GameObject:
   m_ObjectHideFlags: 0
