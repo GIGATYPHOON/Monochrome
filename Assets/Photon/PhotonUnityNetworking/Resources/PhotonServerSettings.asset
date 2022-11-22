@@ -44,6 +44,7 @@ MonoBehaviour:
   - Shoot_RPC
   - Face_RPC
   - Facing
+  - HPBarSync
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

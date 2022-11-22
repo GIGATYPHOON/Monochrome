@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using Photon.Pun;
+using Photon.Pun.UtilityScripts;
+using Photon.Realtime;
 
-public class Entity : MonoBehaviour
+public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 {
     [SerializeField]
     private float HP = 100;
@@ -16,6 +19,9 @@ public class Entity : MonoBehaviour
 
     public UnityEvent onHit;
 
+    [SerializeField]
+    bool playercontrolled;
+
     void Start()
     {
         
@@ -24,9 +30,20 @@ public class Entity : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (hpbar != null)
-            hpbar.GetComponentInChildren<Image>().fillAmount = HP / MaxHP;
+
+            photonView.RPC("HPBarSync", RpcTarget.AllBuffered, HP, MaxHP);
     }
+
+
+    [PunRPC]
+    void HPBarSync(float H, float MaxH)
+    {
+
+        if (hpbar != null)
+            hpbar.GetComponentInChildren<Image>().fillAmount = H / MaxH;
+    }
+
+
 
     public void LoseHP(float HPtoLose)
     {
@@ -38,4 +55,20 @@ public class Entity : MonoBehaviour
     {
         return HP;
     }
+
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            // We own this player: send the others our data
+            stream.SendNext(HP);
+        }
+        else
+        {
+            // Network player, receive data
+            HP = (float)stream.ReceiveNext();
+        }
+    }
+
 }

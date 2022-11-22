@@ -268,6 +268,7 @@ MonoBehaviour:
   onHit:
     m_PersistentCalls:
       m_Calls: []
+  playercontrolled: 1
 --- !u!114 &7636122854286968197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,6 +288,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
+  - {fileID: 2541767816814588817}
   - {fileID: 302003847271681675}
   - {fileID: 4947359833524188845}
   sceneViewId: 0
@@ -323,7 +325,7 @@ MonoBehaviour:
   m_SynchronizeVelocity: 1
   m_SynchronizeAngularVelocity: 0
   m_TeleportEnabled: 1
-  m_TeleportIfDistanceGreaterThan: 3
+  m_TeleportIfDistanceGreaterThan: 2
 --- !u!1 &5296306403542224967
 GameObject:
   m_ObjectHideFlags: 0
