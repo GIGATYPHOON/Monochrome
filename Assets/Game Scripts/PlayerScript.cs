@@ -242,7 +242,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
 
         if(isshooting && /*shotstaken < shotlimit &&*/ shotdelay <= 0)
         {
-            photonView.RPC("Shoot_RPC", RpcTarget.AllBuffered);
+            photonView.RPC("Shoot_RPC", RpcTarget.AllBuffered, facingright);
             shotdelay = shotdelayset;
         }
 
@@ -275,7 +275,6 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     [PunRPC]
     private void Shoot_RPC(bool rpc_facingright )
     {
-        rpc_facingright = facingright;
 
 
         GameObject pooledBullet = ObjectPoolManager.Instance.GetPooledObject(bulletId);
