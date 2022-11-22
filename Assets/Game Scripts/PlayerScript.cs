@@ -203,6 +203,9 @@ public class PlayerScript : MonoBehaviourPunCallbacks
 
     void Facing()
     {
+
+        if (!photonView.IsMine)
+
         if (Input.GetAxisRaw("Horizontal") > 0)
         {
             facingright = true;
@@ -223,6 +226,9 @@ public class PlayerScript : MonoBehaviourPunCallbacks
             directionface.GetComponent<SpriteRenderer>().flipX =  false;
             bulletsource.transform.localPosition = new Vector2(-0.855f, 0);
         }
+
+        return;
+
     }
 
 
