@@ -656,7 +656,7 @@ MonoBehaviour:
   - id: Player
     objectToPool: {fileID: 5296306403270051764, guid: a79daf269b7543143926a4125d4093d2, type: 3}
     parent: {fileID: 1987672921}
-    amountToPool: 4
+    amountToPool: 5
     shouldExpand: 0
   pooledObjects: []
 --- !u!4 &237580157
