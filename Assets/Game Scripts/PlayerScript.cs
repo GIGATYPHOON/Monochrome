@@ -60,6 +60,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     private void OnEnable()
     {
         base.OnEnable();
+        //this.transform.position = GameObject.Find("PlayerSpawns").transform.GetChild(PhotonView.CreatorActorNr).position;
 
         if (!photonView.IsMine)
             return;
