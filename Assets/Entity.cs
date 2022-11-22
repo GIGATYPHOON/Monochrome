@@ -32,6 +32,17 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     {
 
             photonView.RPC("HPBarSync", RpcTarget.AllBuffered, HP, MaxHP);
+
+        if(playercontrolled)
+        {
+            hpbar.GetComponentInChildren<Image>().color = Color.yellow;
+
+            if (!photonView.IsMine)
+                return;
+
+            hpbar.GetComponentInChildren<Image>().color = Color.green;
+
+        }
     }
 
 
