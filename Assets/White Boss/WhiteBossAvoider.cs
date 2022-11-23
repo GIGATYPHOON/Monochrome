@@ -27,7 +27,7 @@ public class WhiteBossAvoider : MonoBehaviour
 
     private void OnEnable()
     {
-        targetPlayer = GameObject.FindGameObjectWithTag("Player").transform;
+
     }
 
     private void OnDisable()
@@ -38,6 +38,9 @@ public class WhiteBossAvoider : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        targetPlayer = GameObject.FindGameObjectWithTag("Player").transform;
+
+
         this.transform.rotation = Quaternion.Euler(0, 0, this.transform.rotation.eulerAngles.z);
 
         //this.transform.position = Vector3.ClampMagnitude(transform.position, 8f);
@@ -103,7 +106,7 @@ public class WhiteBossAvoider : MonoBehaviour
                 resultDir = MirrorPoint;
                 Debug.DrawRay(hit1.point, resultDir, Color.blue);
 
-                print(MirrorPoint);
+
 
             }
 

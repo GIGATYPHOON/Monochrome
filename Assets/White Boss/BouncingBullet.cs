@@ -1,8 +1,9 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BouncingBullet : MonoBehaviour
+public class BouncingBullet : MonoBehaviourPunCallbacks
 {
     private Vector2 direction;
     [SerializeField]
@@ -21,12 +22,18 @@ public class BouncingBullet : MonoBehaviour
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
         MoveBullet();
+
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    private void Start()
+    {
+        //PhotonNetwork.AllocateViewID(this.GetComponent<PhotonView>()) ;
     }
 
     private void MoveBullet()
@@ -54,11 +61,11 @@ public class BouncingBullet : MonoBehaviour
             bulletdies();//To be changed to destroy over network
         }
 
-        if(rigidbody2D.velocity == Vector2.zero)
-        {
+        //if(rigidbody2D.velocity == Vector2.zero)
+        //{
 
-            bulletdies();
-        }
+        //    bulletdies();
+        //}
 
         if (collision.gameObject.layer == 6 || collision.gameObject.layer == 9)
         {
@@ -66,9 +73,20 @@ public class BouncingBullet : MonoBehaviour
         }
     }
 
+
     public void bulletdies()
     {
-        this.gameObject.SetActive(false);
-        currentBounces = 0;
+        photonView.RPC("diesinnetworkalso", RpcTarget.All);
+        //currentBounces = 0;
+        //this.gameObject.SetActive(false);
     }
+
+    [PunRPC]
+    void diesinnetworkalso()
+    {
+
+        currentBounces = 0;
+        this.gameObject.SetActive(false);
+    }
+
 }

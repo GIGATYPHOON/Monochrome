@@ -71,7 +71,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
 
         camsforplayer.gameObject.SetActive(true);
 
-            StartCoroutine(ExecuteAfterTime(0.1f));
+            StartCoroutine(ExecuteAfterTime(0.2f));
 
     }
 

@@ -1,11 +1,14 @@
+using Photon.Pun;
 using Photon.Pun.Demo.Asteroids;
+using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Windows.Speech;
+using System.Linq;
 
-public class WhiteBoss : MonoBehaviour
+public class WhiteBoss : MonoBehaviourPunCallbacks
 {
    
     [SerializeField]
@@ -92,18 +95,28 @@ public class WhiteBoss : MonoBehaviour
     private GameObject bulletObj;
     #endregion
 
+
+
     public GameObject[] playerList; //To be removed when Photon player list is implemented
+
+    [SerializeField]
+    List<GameObject> playersinsight = new List<GameObject>();
 
     void Start()
     {
-        playerList = GameObject.FindGameObjectsWithTag("Player");
+        
     }
 
     private void OnEnable()
     {
+        base.OnEnable();
 
 
-        InvokeRepeating("FireBouncingBullets", 0.001f, bulletFireRate);
+        if (!photonView.IsMine)
+            return;
+
+            InvokeRepeating("FireBouncingBullets", 0.001f, bulletFireRate);
+
     }
 
     // Update is called once per frame
@@ -111,9 +124,11 @@ public class WhiteBoss : MonoBehaviour
     {
         GetComponent<Animator>().SetInteger("Phase", phase);
 
+        playerList = GameObject.FindGameObjectsWithTag("Player");
 
         if (shield.GetComponent<Entity>().returnHP() < 0)
         {
+
             shield.SetActive(false); 
             invincible = false;
            
@@ -227,17 +242,41 @@ public class WhiteBoss : MonoBehaviour
         if (!canFireBullets)
             return;
 
+
+
+        float oldDistance = 0;
+
         foreach (GameObject player in playerList)
         {
+            
+
+
             RaycastHit2D hit = Physics2D.Raycast(transform.position, player.transform.position - this.transform.position, Mathf.Infinity, bulletMask);
             if (hit)
             {
+                float spread;
+                spread = Random.Range(-bulletspread, bulletspread);
 
-                if(hit.collider.gameObject.tag == "Player")
+                if (hit.collider.gameObject.tag == "Player")
                 {
+                    if(!playersinsight.Contains( hit.collider.gameObject))
+                    {
+                        playersinsight.Add(hit.collider.gameObject);
+                    }
+
+
+                    playersinsight.OrderBy(x => Vector2.Distance(this.transform.position, x.transform.position)).ToList();
+
 
 
                     Debug.DrawRay(this.transform.position, hit.point - new Vector2(transform.position.x, transform.position.y), Color.green);
+
+
+
+                    //Debug.Log(playersinsight[0].GetComponent<PhotonView>().Owner.GetPlayerNumber() + " is closest");
+
+
+
                     bulletspawnrotater.transform.rotation = Quaternion.FromToRotation(this.transform.up, hit.point - new Vector2(transform.position.x, transform.position.y));
 
 
@@ -245,33 +284,88 @@ public class WhiteBoss : MonoBehaviour
 
 
 
-
-
-
-                    if(bullet != null && bulletcount < bulletcountlimit)
+                    if (bullet != null && bulletcount < bulletcountlimit)
                     {
-                        Vector3 spreadplayerpos = new Vector2(player.transform.position.x + Random.Range(-bulletspread, bulletspread), player.transform.position.y + Random.Range(-bulletspread, bulletspread));
+                        Vector3 spreadplayerpos = new Vector2(playersinsight[0].transform.position.x + spread, playersinsight[0].transform.position.y + spread);
 
 
                         bullet.GetComponent<BouncingBullet>().SetDirection(spreadplayerpos - transform.position);
                         bullet.transform.position = bulletspawn.transform.position;
                         bullet.transform.rotation = bulletspawn.transform.rotation;
-                        bullet.SetActive(true);
+                        PhotonNetwork.Instantiate("BouncingBullet", bulletspawn.transform.position, bulletspawn.transform.rotation);
                         bulletcount += 1;
 
                     }
 
-
-
-                    
+                    //print(playersinsight[0].GetComponent<PhotonView>().Owner.GetPlayerNumber());
 
 
                     break;
                 }
+                else
+                {
+                    playersinsight.Clear();
+                }
+
 
             }
+
         }        
     }
+
+
+
+    [PunRPC]
+    void BouncingShotgun(Vector3 played, Quaternion rotationw, float spread, Vector3 bullspawn, Quaternion bullrot)
+    {
+
+        bulletspawnrotater.transform.rotation = rotationw;
+
+
+        GameObject bullet = ObjectPoolManager.Instance.GetPooledObject(bouncingbulletID);
+
+
+
+        if (bullet != null && bulletcount < bulletcountlimit)
+        {
+            Vector3 spreadplayerpos = new Vector2(played.x + spread, played.y + spread);
+
+
+            bullet.GetComponent<BouncingBullet>().SetDirection(spreadplayerpos - transform.position);
+            bullet.transform.position = bullspawn;
+            bullet.transform.rotation = bullrot;
+            //bullet.SetActive(true);
+            PhotonNetwork.Instantiate("BouncingBullet", bullspawn, bullrot);
+            bulletcount += 1;
+
+        }
+    }
+
+    //void BouncingShotgun2()
+    //{
+
+    //    bulletspawnrotater.transform.rotation = rotationw;
+
+
+    //    GameObject bullet = ObjectPoolManager.Instance.GetPooledObject(bouncingbulletID);
+
+
+
+    //    if (bullet != null && bulletcount < bulletcountlimit)
+    //    {
+    //        Vector3 spreadplayerpos = new Vector2(played.x + spread, played.y + spread);
+
+
+    //        bullet.GetComponent<BouncingBullet>().SetDirection(spreadplayerpos - transform.position);
+    //        bullet.transform.position = bulletspawn.transform.position;
+    //        bullet.transform.rotation = bulletspawn.transform.rotation;
+    //        bullet.SetActive(true);
+    //        bulletcount += 1;
+
+    //    }
+    //}
+
+
 
 
     private void TickMissleCooldown()
@@ -316,4 +410,31 @@ public class WhiteBoss : MonoBehaviour
       
 
     }
+
 }
+
+
+
+
+
+
+
+//bulletspawnrotater.transform.rotation = Quaternion.FromToRotation(this.transform.up, hit.point - new Vector2(transform.position.x, transform.position.y));
+
+
+//GameObject bullet = ObjectPoolManager.Instance.GetPooledObject(bouncingbulletID);
+
+
+
+//if (bullet != null && bulletcount < bulletcountlimit)
+//{
+//    Vector3 spreadplayerpos = new Vector2(playersinsight[0].transform.position.x + spread, playersinsight[0].transform.position.y + spread);
+
+
+//    bullet.GetComponent<BouncingBullet>().SetDirection(spreadplayerpos - transform.position);
+//    bullet.transform.position = bulletspawn.transform.position;
+//    bullet.transform.rotation = bulletspawn.transform.rotation;
+//    bullet.SetActive(true);
+//    bulletcount += 1;
+
+//}

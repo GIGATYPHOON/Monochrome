@@ -49,6 +49,9 @@ MonoBehaviour:
   - Showthefuckup
   - Spawn
   - RETARDED
+  - BouncingShotgun
+  - SyncBarrage
+  - diesinnetworkalso
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
