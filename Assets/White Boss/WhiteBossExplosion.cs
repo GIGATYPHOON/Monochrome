@@ -20,7 +20,7 @@ public class WhiteBossExplosion : MonoBehaviour
     {
         if (collision.transform.tag == "Player")
         {
-            collision.transform.GetComponent<Entity>()?.LoseHP(5.0f);
+            collision.transform.GetComponent<Entity>()?.LoseHP(2.0f);
 
         }
     }
