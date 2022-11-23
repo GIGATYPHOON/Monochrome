@@ -2458,6 +2458,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP: 100
   MaxHP: 100
+  isVulnerable: 1
   hpbar: {fileID: 1859163444}
   onHit:
     m_PersistentCalls:
@@ -2535,7 +2536,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8066af798f980f8479dd5eb6756e8bed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isVulnerable: 0
   invulnInterval: 3
   vulnInterval: 4
   pullForce: 150
@@ -3311,7 +3311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ed73e3ec777eb14eb5e7d8e361eb3a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minFalloffDist: 2
+  minFalloffDist: 3
   minDamage: 0.05
   maxFalloffDist: 5.25
   maxDamage: 0.25
