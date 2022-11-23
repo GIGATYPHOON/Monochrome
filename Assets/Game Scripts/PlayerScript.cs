@@ -58,6 +58,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
 
     private bool isshooting = false;
 
+    [SerializeField]
     private bool isdead = false;
 
     [SerializeField]
@@ -80,7 +81,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
 
         camsforplayer.gameObject.SetActive(true);
 
-            StartCoroutine(ExecuteAfterTime(0.2f));
+            StartCoroutine(ExecuteAfterTime(0.5f));
 
     }
 
@@ -101,7 +102,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
 
     void Start()
     {
-
+        GetComponent<Entity>().SetHP(GetComponent<Entity>().returnMaxHP());
 
         if (!photonView.IsMine)
             return;
@@ -112,6 +113,8 @@ public class PlayerScript : MonoBehaviourPunCallbacks
         facingright = startsright;
 
         reload = reloadtimer;
+
+
 
     }
 
@@ -147,6 +150,20 @@ public class PlayerScript : MonoBehaviourPunCallbacks
 
         photonView.RPC("Face_RPC", RpcTarget.All,facingright);
 
+        if (GetComponent<Entity>().returnHP() <= 0)
+        {
+            isdead = true;
+        }
+        else
+        {
+            isdead = false;
+        }
+
+        photonView.RPC("Dead_RPC", RpcTarget.All, isdead);
+
+
+
+
     }
 
     private void LateUpdate()
@@ -157,6 +174,9 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     private void FixedUpdate()
     {
         if (!photonView.IsMine)
+            return;
+
+        if (isdead)
             return;
 
         Movement();
@@ -273,6 +293,27 @@ public class PlayerScript : MonoBehaviourPunCallbacks
             bulletsource.transform.localPosition = new Vector2(-0.855f, 0);
         }
     }
+
+    [PunRPC]
+    void Dead_RPC(bool areyoudead)
+    {
+
+        if (areyoudead)
+        {
+            directionface.GetComponent<SpriteRenderer>().sprite = tombstone;
+            this.tag = "Dead";
+        }
+        else
+        {
+
+            directionface.GetComponent<SpriteRenderer>().sprite = normalsprite;
+            
+        }
+    }
+
+
+
+
 
 
     void Shoot()

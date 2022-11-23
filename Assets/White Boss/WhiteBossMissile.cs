@@ -125,7 +125,7 @@ public class WhiteBossMissile : MonoBehaviourPunCallbacks
 
     private void Die()
     {
-        this.GetComponent<Entity>().SetHP(this.GetComponent<Entity>().returnMaxHP());
+        this.GetComponent<Entity>().SetHP(5f);
         photonView.RPC("diesinnetworkalso", RpcTarget.All);
     }
 

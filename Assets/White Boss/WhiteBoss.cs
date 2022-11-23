@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Windows.Speech;
 using System.Linq;
+using Unity.VisualScripting;
 
 public class WhiteBoss : MonoBehaviourPunCallbacks
 {
@@ -96,6 +97,8 @@ public class WhiteBoss : MonoBehaviourPunCallbacks
     private GameObject bulletObj;
     #endregion
 
+    [SerializeField]
+    Vector3 originalposition;
 
 
     public GameObject[] playerList; //To be removed when Photon player list is implemented
@@ -105,7 +108,7 @@ public class WhiteBoss : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        
+        originalposition = transform.position; 
     }
 
     private void OnEnable()
@@ -157,8 +160,10 @@ public class WhiteBoss : MonoBehaviourPunCallbacks
                 whiteavoidanceobject.gameObject.transform.position = this.transform.position;
                 whiteavoidanceobject.gameObject.SetActive(false);
                 whiteauraobject.transform.localScale = new Vector3(17f, 17f, 1f);
+                this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
                 break;
             case 2:
+                this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
                 whiteavoidanceobject.gameObject.SetActive(true);
                 whitelaserobject.gameObject.SetActive(false);
                 whiteauraobject.gameObject.SetActive(false);

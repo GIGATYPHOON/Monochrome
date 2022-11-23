@@ -250,8 +250,8 @@ MonoBehaviour:
   jumpheight: 27
   camsforplayer: {fileID: 3802012257482393509}
   shotdelay: 0
-  normalsprite: {fileID: 0}
-  tombstone: {fileID: 0}
+  normalsprite: {fileID: 21300000, guid: bd702d0da706f8d41b36626f4c51d8b1, type: 3}
+  tombstone: {fileID: 21300000, guid: 512cb6f7ecc97694b81ffa21b6a863d0, type: 3}
 --- !u!114 &2541767816814588817
 MonoBehaviour:
   m_ObjectHideFlags: 0
