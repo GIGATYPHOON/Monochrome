@@ -57,7 +57,8 @@ public class WhiteBoss : MonoBehaviourPunCallbacks
     private GameObject missileObj;
 
 
-
+    [SerializeField]
+    private bool stayaway;
    
 
     [SerializeField]
@@ -135,7 +136,7 @@ public class WhiteBoss : MonoBehaviourPunCallbacks
             phase = 2;
             
         }
-        if (GetComponent<Entity>().returnHP()/100f < 0.4f)
+        if (GetComponent<Entity>().returnHP()/ GetComponent<Entity>().returnMaxHP() < 0.4f)
         {
            
             invincible = false;
@@ -171,20 +172,31 @@ public class WhiteBoss : MonoBehaviourPunCallbacks
                 break;
             case 3:
 
-                //To-do: raycast to player position with distance to check if we want to run laser
                 foreach (GameObject player in playerList)
                 {
 
-                    if (Vector3.Distance(player.transform.position, this.transform.position) < 7f)
+                    if (Vector3.Distance(player.transform.position, this.transform.position) >= 7f)
                     {
-                        whiteauraobject.SetActive(true);
+                        stayaway = false;
                     }
-                    else
-                    {
-                        whiteauraobject.SetActive(false);
-                    }
+
                 }
-                
+                foreach (GameObject player in playerList)
+                {
+
+                    if (Vector3.Distance(player.transform.position, this.transform.position) < 7f )
+                    {
+                        stayaway = true;
+                    }
+
+                }
+
+
+
+
+                photonView.RPC("AuraAway", RpcTarget.All, stayaway);
+
+
                 GetComponent<SpriteRenderer>().sprite = phase3sprite;
                 whiteauraobject.transform.localScale = new Vector3(9f, 9f, 1f);
                 whiteavoidanceobject.gameObject.SetActive(true);
@@ -366,7 +378,20 @@ public class WhiteBoss : MonoBehaviourPunCallbacks
     //}
 
 
+    [PunRPC]
+    void AuraAway(bool tooclose)
+    {
 
+        if (tooclose== true)
+        {
+            whiteauraobject.SetActive(true);
+        }
+        else
+        {
+
+            whiteauraobject.SetActive(false);
+        }
+    }
 
     private void TickMissleCooldown()
     {

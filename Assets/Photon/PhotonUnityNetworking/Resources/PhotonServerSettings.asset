@@ -53,6 +53,7 @@ MonoBehaviour:
   - SyncBarrage
   - diesinnetworkalso
   - makehpbarsnotjanky
+  - AuraAway
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

@@ -1,8 +1,9 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WhiteBossMissile : MonoBehaviour
+public class WhiteBossMissile : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     private float movementSpeed;
@@ -124,8 +125,15 @@ public class WhiteBossMissile : MonoBehaviour
 
     private void Die()
     {
+        photonView.RPC("diesinnetworkalso", RpcTarget.All);
+    }
+
+    [PunRPC]
+    void diesinnetworkalso()
+    {
+
         Instantiate(explosion, transform.position, Quaternion.identity);
-        Destroy(this.gameObject); //Make this return to pool instead of destroying
+        this.gameObject.SetActive(false);
     }
 
     public void SetTarget(Transform target)

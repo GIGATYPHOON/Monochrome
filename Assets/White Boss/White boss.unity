@@ -727,7 +727,7 @@ MonoBehaviour:
     parent: {fileID: 1987672921}
     amountToPool: 5
     shouldExpand: 0
-  - id: WhiteBossMissile
+  - id: Homer
     objectToPool: {fileID: 3072434040819586971, guid: 2d5444001c1b338459eee40764fbf605, type: 3}
     parent: {fileID: 1987672921}
     amountToPool: 5
@@ -2831,8 +2831,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 051c04de08d93af43b98a31a8fdb3b32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 100
-  MaxHP: 100
+  HP: 50
+  MaxHP: 50
   hpbar: {fileID: 1859163444}
   onHit:
     m_PersistentCalls:

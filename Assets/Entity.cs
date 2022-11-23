@@ -61,10 +61,11 @@ public class Entity : MonoBehaviourPunCallbacks/*, IPunObservable*/
     public void LoseHP(float HPtoLose)
     {
 
-        onHit.Invoke();
 
         if (!PhotonNetwork.IsMasterClient)
             return;
+        onHit.Invoke();
+
         photonView.RPC("makehpbarsnotjanky", RpcTarget.All, HPtoLose);
 
     }
@@ -72,6 +73,11 @@ public class Entity : MonoBehaviourPunCallbacks/*, IPunObservable*/
     public float returnHP()
     {
         return HP;
+    }
+
+    public float returnMaxHP()
+    {
+        return MaxHP;
     }
 
 
