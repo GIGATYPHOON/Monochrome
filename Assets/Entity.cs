@@ -13,6 +13,7 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     private float HP = 100;
     [SerializeField]
     private float MaxHP = 100;
+    public bool isVulnerable = true;
 
     [SerializeField]
     private GameObject hpbar;
@@ -48,8 +49,7 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 
 
     void HPBarSync(float H, float MaxH)
-    {
-
+    {       
         if (hpbar != null)
             hpbar.GetComponentInChildren<Image>().fillAmount = H / MaxH;
     }
@@ -58,6 +58,8 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 
     public void LoseHP(float HPtoLose)
     {
+        if (!isVulnerable) return;
+
         HP -= HPtoLose;
         onHit.Invoke();
     }

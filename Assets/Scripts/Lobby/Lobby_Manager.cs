@@ -94,7 +94,7 @@ public class Lobby_Manager : SingletonPun<Lobby_Manager>
 
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.LoadLevel(1);
+            PhotonNetwork.LoadLevel(2);
         }
 
     }
@@ -108,7 +108,7 @@ public class Lobby_Manager : SingletonPun<Lobby_Manager>
             return;
         }
         Debug.LogFormat("PhotonNetwork : Loading Level : {0}", PhotonNetwork.CurrentRoom.PlayerCount);
-        PhotonNetwork.LoadLevel(1);
+        PhotonNetwork.LoadLevel(2);
 
     }
 }

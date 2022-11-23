@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/White Boss/White boss.unity
     guid: 1312f0b76cc4fd5449004d07a7f2a355
+  - enabled: 1
+    path: Assets/Black Boss/Black boss.unity
+    guid: a40c6a0d895dbc74ba6278a65c07a27f
   m_configObjects: {}
