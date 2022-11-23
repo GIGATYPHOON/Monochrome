@@ -250,6 +250,8 @@ MonoBehaviour:
   jumpheight: 27
   camsforplayer: {fileID: 3802012257482393509}
   shotdelay: 0
+  normalsprite: {fileID: 0}
+  tombstone: {fileID: 0}
 --- !u!114 &2541767816814588817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,7 +339,6 @@ MonoBehaviour:
   OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 2541767816814588817}
   - {fileID: 4947359833524188845}
   - {fileID: 7789761680847065269}
   sceneViewId: 0

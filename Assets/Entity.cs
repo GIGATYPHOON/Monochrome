@@ -80,6 +80,10 @@ public class Entity : MonoBehaviourPunCallbacks/*, IPunObservable*/
         return MaxHP;
     }
 
+    public void SetHP(float hptoset)
+    {
+        HP = hptoset;
+    }
 
     [PunRPC]
     void makehpbarsnotjanky(float Health)

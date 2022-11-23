@@ -408,7 +408,7 @@ public class WhiteBoss : MonoBehaviourPunCallbacks
 
         foreach (GameObject player in playerList)
         {
-            GameObject missile = PhotonNetwork.Instantiate("Homer", transform.position, Quaternion.identity); //To be replaced with PhotonNetwork.Instantiate
+            GameObject missile = PhotonNetwork.Instantiate("Homer", bulletspawn.transform.position, bulletspawn.transform.rotation); //To be replaced with PhotonNetwork.Instantiate
             missile.GetComponent<WhiteBossMissile>().SetTarget(player.transform);
         }
     }

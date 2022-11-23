@@ -58,7 +58,13 @@ public class PlayerScript : MonoBehaviourPunCallbacks
 
     private bool isshooting = false;
 
+    private bool isdead = false;
 
+    [SerializeField]
+    Sprite normalsprite;
+
+    [SerializeField]
+    Sprite tombstone;
 
     private void OnEnable()
     {
@@ -67,6 +73,9 @@ public class PlayerScript : MonoBehaviourPunCallbacks
 
 
         if (!photonView.IsMine)
+            return;
+
+        if (isdead)
             return;
 
         camsforplayer.gameObject.SetActive(true);
@@ -97,7 +106,8 @@ public class PlayerScript : MonoBehaviourPunCallbacks
         if (!photonView.IsMine)
             return;
 
-
+        if (isdead)
+            return;
 
         facingright = startsright;
 
@@ -111,6 +121,11 @@ public class PlayerScript : MonoBehaviourPunCallbacks
 
         //wow
         if (!photonView.IsMine)
+            return;
+
+
+
+        if (isdead)
             return;
 
         if (isshooting == false)
