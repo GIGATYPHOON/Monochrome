@@ -727,6 +727,11 @@ MonoBehaviour:
     parent: {fileID: 1987672921}
     amountToPool: 5
     shouldExpand: 0
+  - id: WhiteBossMissile
+    objectToPool: {fileID: 3072434040819586971, guid: 2d5444001c1b338459eee40764fbf605, type: 3}
+    parent: {fileID: 1987672921}
+    amountToPool: 5
+    shouldExpand: 0
   pooledObjects: []
 --- !u!4 &237580157
 Transform:
@@ -2911,7 +2916,6 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 1133315528}
   - {fileID: 1133315531}
   - {fileID: 1133315533}
   - {fileID: 1133315532}

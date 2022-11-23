@@ -7,7 +7,7 @@ using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 
-public class Entity : MonoBehaviourPunCallbacks, IPunObservable
+public class Entity : MonoBehaviourPunCallbacks/*, IPunObservable*/
 {
     [SerializeField]
     private float HP = 100;
@@ -21,6 +21,8 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 
     [SerializeField]
     bool playercontrolled;
+
+
 
     void Start()
     {
@@ -58,8 +60,13 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 
     public void LoseHP(float HPtoLose)
     {
-        HP -= HPtoLose;
+
         onHit.Invoke();
+
+        if (!PhotonNetwork.IsMasterClient)
+            return;
+        photonView.RPC("makehpbarsnotjanky", RpcTarget.All, HPtoLose);
+
     }
 
     public float returnHP()
@@ -68,18 +75,27 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     }
 
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    [PunRPC]
+    void makehpbarsnotjanky(float Health)
     {
-        if (stream.IsWriting)
-        {
-            // We own this player: send the others our data
-            stream.SendNext(HP);
-        }
-        else
-        {
-            // Network player, receive data
-            HP = (float)stream.ReceiveNext();
-        }
+
+        HP -= Health;
     }
+
+
+
+    //public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    //{
+    //    if (stream.IsWriting)
+    //    {
+    //        // We own this player: send the others our data
+    //        stream.SendNext(HP);
+    //    }
+    //    else
+    //    {
+    //        // Network player, receive data
+    //        HP = (float)stream.ReceiveNext();
+    //    }
+    //}
 
 }
