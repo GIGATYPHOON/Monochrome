@@ -2895,6 +2895,7 @@ MonoBehaviour:
   canFireBullets: 1
   bulletFireRate: 0.0001
   bulletObj: {fileID: 371484569217187556, guid: 4f30823ece9824243a4fe39132bb58d5, type: 3}
+  originalposition: {x: 0, y: 0, z: 0}
   playerList:
   - {fileID: 0}
   playersinsight: []
@@ -4169,7 +4170,7 @@ PointEffector2D:
   m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
-    m_Bits: 1023
+    m_Bits: 1019
   m_ForceMagnitude: 230
   m_ForceVariation: 0
   m_DistanceScale: 1
