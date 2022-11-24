@@ -6,6 +6,7 @@ using Photon.Pun;
 using UnityEngine.Events;
 using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
+using System.Linq;
 
 public class Death_Manager : MonoBehaviourPunCallbacks
 {
@@ -14,7 +15,7 @@ public class Death_Manager : MonoBehaviourPunCallbacks
     [SerializeField]
     GameObject WhiteBoss;
 
-    GameObject Player1;
+    GameObject[] Playersa;
 
 
     //If All players HP = 0 -> End Scene (Lose)
@@ -36,23 +37,44 @@ public class Death_Manager : MonoBehaviourPunCallbacks
 
     public void EndScreen()
     {
+        Playersa = GameObject.FindGameObjectsWithTag("Player");
 
 
         if (WhiteBoss.GetComponent <Entity>().returnHP() <= 0.0)
         {
-
-
-
-
 
             PhotonNetwork.MasterClient.SetWin(true);
 
             print(PhotonNetwork.MasterClient.GetWin() + "  " + PhotonNetwork.MasterClient.GetPlayerNumber());
 
 
-            PhotonNetwork.LoadLevel(2);
-            Destroy(this);
+            if(PhotonNetwork.MasterClient.GetWin() == true)
+            {
+
+                PhotonNetwork.LoadLevel(2);
+                Destroy(this);
+            }
+
         }
+
+
+
+        if (Playersa.Length ==0)
+        {
+            PhotonNetwork.MasterClient.SetWin(false);
+
+            print(PhotonNetwork.MasterClient.GetWin() + "  " + PhotonNetwork.MasterClient.GetPlayerNumber());
+
+
+            if (PhotonNetwork.MasterClient.GetWin() == false)
+            {
+
+                PhotonNetwork.LoadLevel(2);
+                Destroy(this);
+            }
+
+        }
+        
     }
  
 }
