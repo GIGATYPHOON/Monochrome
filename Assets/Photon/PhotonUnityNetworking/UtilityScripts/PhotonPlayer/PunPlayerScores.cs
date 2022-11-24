@@ -33,6 +33,11 @@ namespace Photon.Pun.UtilityScripts
         public const string PlayerWin = "win";
     }
 
+    public class PunPlayerDone : MonoBehaviour
+    {
+        public const string PlayerDone = "Done";
+    }
+
 
     public static class WinExtensions
     {
@@ -58,6 +63,28 @@ namespace Photon.Pun.UtilityScripts
     }
 
 
+    public static class DoneExtension
+    {
+
+        public static void SetDone(this Player player, bool onoff)
+        {
+            Hashtable done = new Hashtable();
+            done[PunPlayerDone.PlayerDone] = onoff;
+
+            player.SetCustomProperties(done);
+        }
+
+        public static bool GetDone(this Player player)
+        {
+            object done;
+            if (player.CustomProperties.TryGetValue(PunPlayerDone.PlayerDone, out done))
+            {
+                return (bool)done;
+            }
+
+            return false;
+        }
+    }
 
 
 

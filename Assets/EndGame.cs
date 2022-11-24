@@ -14,6 +14,9 @@ public class EndGame : MonoBehaviourPunCallbacks
     GameObject texttochange;
 
     [SerializeField]
+    GameObject returnbuttontext;
+
+    [SerializeField]
     GameObject hapi;
 
     [SerializeField]
@@ -31,6 +34,21 @@ public class EndGame : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
+
+
+        if (PhotonNetwork.MasterClient.GetDone()== true)
+        {
+            texttochange.GetComponent<TextMeshProUGUI>().text = "Y O U   W I N";
+            hapi.SetActive(true);
+            sadge.SetActive(false);
+
+        }
+        else
+        {
+            texttochange.GetComponent<TextMeshProUGUI>().text = "Y O U   L O S E";
+            hapi.SetActive(false);
+            sadge.SetActive(true);
+        }
 
 
 
