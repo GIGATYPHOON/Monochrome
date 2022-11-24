@@ -2408,14 +2408,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP: 100
   MaxHP: 100
+  damageMultiplier: 1
   isVulnerable: 1
   hpbar: {fileID: 1859163444}
   onHit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: WhiteBoss, Assembly-CSharp
-        m_MethodName: FireMissiles
+      - m_Target: {fileID: 1133315532}
+        m_TargetAssemblyTypeName: BlackBoss, Assembly-CSharp
+        m_MethodName: PhaseCheck
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2480,6 +2481,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8066af798f980f8479dd5eb6756e8bed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  phase: 1
   canInvuln: 1
   invulnInterval: 3
   vulnInterval: 4
@@ -2488,7 +2490,7 @@ MonoBehaviour:
   pullInterval: 5
   canMove: 1
   markedTarget: {fileID: 0}
-  movementSpeed: 25
+  movementSpeed: 10
   canAttack: 1
   isAttacking: 0
   meleeAtkTriggerDist: 1.9
@@ -3516,6 +3518,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   atkDmg: 10
   knockbackAmt: 10
+  blackBoss: {fileID: 1133315532}
 --- !u!61 &1712358672
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3523,7 +3526,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1712358667}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1

@@ -6,6 +6,9 @@ using System.Linq;
 public class BlackBoss : MonoBehaviour
 {
     [SerializeField]
+    private int phase = 1;
+
+    [SerializeField]
     private bool canInvuln = true;
     [SerializeField]
     private float invulnInterval = 3.0f;
@@ -46,6 +49,7 @@ public class BlackBoss : MonoBehaviour
     void Start()
     {
         entity = GetComponent<Entity>();
+        PhaseChange();
     }
 
     // Update is called once per frame
@@ -63,15 +67,6 @@ public class BlackBoss : MonoBehaviour
         {
             Debug.Log("Attacking marked target");
             AttackMarkedTarget();
-        }
-
-        if (isAttacking)
-        {
-            blackBossAura.SetActive(false);
-        }
-        else
-        {
-            blackBossAura.SetActive(true);
         }
     }
 
@@ -142,7 +137,66 @@ public class BlackBoss : MonoBehaviour
         GetComponent<Animator>().Play("Attack1");
     }
 
+    public void PhaseCheck()
+    {
+        float currentHPPercent = entity.returnHP() / entity.returnMaxHP();
 
+        if (phase != 1 && currentHPPercent <= 1.0f && currentHPPercent > 0.8f)
+        {
+            phase = 1;
+            PhaseChange();
+        }            
+
+        else if (phase != 2 && currentHPPercent <= 0.8f && currentHPPercent > 0.35f)
+        {
+            phase = 2;
+            PhaseChange();
+        }
+          
+        else if (phase != 3 && currentHPPercent <= 0.35f)
+        {
+            phase = 3;
+            PhaseChange();
+        }
+    }
+
+    private void PhaseChange()
+    {
+        switch (phase)
+        {
+            case 1:
+                blackBossAura.SetActive(true);
+                canInvuln = true;
+                canAttack = false;
+                canMove = false;
+                canPull = true;
+                break;
+
+            case 2:
+                MarkNewTarget();
+                blackBossAura.SetActive(false);
+                canInvuln = false;
+                entity.isVulnerable = true;
+                canAttack = true;
+                canMove = true;
+                canPull = false;
+                break;
+
+            case 3:
+                blackBossAura.SetActive(true);
+                canInvuln = false;
+                canAttack = true;
+                canMove = true;
+                canPull = false;
+                break;
+        }
+    }
+
+    public void ToggleAura()
+    {
+        if (phase == 3)
+            blackBossAura.SetActive(!blackBossAura.activeInHierarchy);
+    }
 
 
 

@@ -71,6 +71,10 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
         return HP;
     }
 
+    public float returnMaxHP()
+    {
+        return MaxHP;
+    }    
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
