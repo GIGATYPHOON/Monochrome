@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class BlackBoss : MonoBehaviour
 {
@@ -17,6 +18,11 @@ public class BlackBoss : MonoBehaviour
     private float pullIntervalTimer = 0.0f;
 
     [SerializeField]
+    private Transform markedTarget;
+    [SerializeField]
+    private float movementSpeed;
+
+    [SerializeField]
     private List<Transform> playerList; //To be replaced with Photon player list when implemented
 
     // Start is called before the first frame update
@@ -27,9 +33,10 @@ public class BlackBoss : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {        
         HandleVulnerability();
         HandlePlayerPulling();
+        MoveToMarkedTarget();
     }
 
     private void HandleVulnerability()
@@ -66,5 +73,20 @@ public class BlackBoss : MonoBehaviour
 
             pullIntervalTimer = pullInterval;
         }
+    }
+
+    public void MarkNewTarget()
+    {
+        Transform newTarget = playerList.OrderByDescending(p => Vector2.Distance(transform.position, p.position)).ToList()[0];
+
+        markedTarget = newTarget;
+    }
+
+    private void MoveToMarkedTarget()
+    {
+        if (markedTarget == null) return;
+
+        Vector2 movement = movementSpeed * Time.deltaTime * (markedTarget.position - transform.position).normalized;
+        transform.position += new Vector3(movement.x, 0, 0);
     }
 }
