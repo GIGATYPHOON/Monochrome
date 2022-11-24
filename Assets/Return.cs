@@ -28,7 +28,8 @@ public class Return : MonoBehaviour
 
     public void EndScreee()
     {
-        PhotonNetwork.ConnectUsingSettings();
+        PhotonNetwork.LeaveRoom();
+
         PhotonNetwork.LoadLevel(0);
 
         Destroy(this);
