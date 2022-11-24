@@ -7,8 +7,9 @@ using UnityEngine.Events;
 using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using System.Linq;
+using System.Diagnostics;
 
-public class Return : MonoBehaviour
+public class Return : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     GameObject EndScreen;
@@ -26,16 +27,32 @@ public class Return : MonoBehaviour
        
     }
 
-    public void EndScreee()
+    IEnumerator ExecuteAfterTime(float time)
     {
-        PhotonNetwork.LeaveRoom();
-        PhotonNetwork.JoinLobby();
+        yield return new WaitForSeconds(time);
+
+
         PhotonNetwork.LoadLevel(0);
 
-
-
-
         Destroy(this);
+    }
+
+
+    public void EndScreee()
+    {
+
+        PhotonNetwork.Disconnect();
+
+
+
+
+        StartCoroutine(ExecuteAfterTime(1.5f));
+
+
+
+
+
+
 
     }
 }
