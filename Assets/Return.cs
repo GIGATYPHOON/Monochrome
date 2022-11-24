@@ -17,7 +17,7 @@ public class Return : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PhotonNetwork.AutomaticallySyncScene = true;
+
     }
 
     // Update is called once per frame
@@ -28,9 +28,10 @@ public class Return : MonoBehaviour
 
     public void EndScreee()
     {
+        PhotonNetwork.LoadLevel(0);
         PhotonNetwork.LeaveRoom();
 
-        PhotonNetwork.LoadLevel(0);
+
 
         Destroy(this);
 
