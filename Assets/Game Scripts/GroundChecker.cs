@@ -21,7 +21,7 @@ public class GroundChecker : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.gameObject.layer == 6 || collision.gameObject.layer == 9)
+        if(collision.gameObject.layer == 6 || collision.gameObject.layer == 9 || collision.transform.tag == "Enemy")
         {
             onground = true;
         }
@@ -29,7 +29,7 @@ public class GroundChecker : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 6 || collision.gameObject.layer == 9)
+        if (collision.gameObject.layer == 6 || collision.gameObject.layer == 9 || collision.transform.tag == "Enemy")
         {
             onground = false;
         }
