@@ -27,6 +27,42 @@ namespace Photon.Pun.UtilityScripts
         public const string PlayerScoreProp = "score";
     }
 
+
+    public class PunPlayerWin : MonoBehaviour
+    {
+        public const string PlayerWin = "win";
+    }
+
+
+    public static class WinExtensions
+    {
+
+        public static void SetWin(this Player player, bool onoff)
+        {
+            Hashtable win = new Hashtable();
+            win[PunPlayerWin.PlayerWin] = onoff;
+
+            player.SetCustomProperties(win);
+        }
+
+        public static bool GetWin(this Player player)
+        {
+            object win;
+            if (player.CustomProperties.TryGetValue(PunPlayerWin.PlayerWin, out win))
+            {
+                return (bool)win;
+            }
+
+            return false;
+        }
+    }
+
+
+
+
+
+
+
     public static class ScoreExtensions
     {
         public static void SetScore(this Player player, int newScore)

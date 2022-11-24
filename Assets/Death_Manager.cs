@@ -7,14 +7,14 @@ using UnityEngine.Events;
 using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 
-public class Death_Manager : SingletonPun<Death_Manager>
+public class Death_Manager : MonoBehaviourPunCallbacks
 {
 
     //Check Health of Player and boss
     [SerializeField]
-
     GameObject WhiteBoss;
-    GameObject Entity;
+
+    GameObject Player1;
 
 
     //If All players HP = 0 -> End Scene (Lose)
@@ -37,14 +37,19 @@ public class Death_Manager : SingletonPun<Death_Manager>
     public void EndScreen()
     {
 
+
         if (WhiteBoss.GetComponent <Entity>().returnHP() <= 0.0)
         {
-            if (!PhotonNetwork.IsMasterClient)
-            {
-                Debug.LogError("PhotonNetwork : Trying to Load a level but we are not the master Client");
-                return;
-            }
-            Debug.LogFormat("PhotonNetwork : Loading Level : {0}", PhotonNetwork.CurrentRoom.PlayerCount);
+
+
+
+
+
+            PhotonNetwork.MasterClient.SetWin(true);
+
+            print(PhotonNetwork.MasterClient.GetWin() + "  " + PhotonNetwork.MasterClient.GetPlayerNumber());
+
+
             PhotonNetwork.LoadLevel(2);
             Destroy(this);
         }
