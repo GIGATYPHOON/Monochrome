@@ -33,7 +33,7 @@ public class Return : MonoBehaviourPunCallbacks
 
 
         PhotonNetwork.LoadLevel(0);
-
+        PhotonNetwork.JoinLobby();
         Destroy(this);
     }
 
@@ -41,7 +41,7 @@ public class Return : MonoBehaviourPunCallbacks
     public void EndScreee()
     {
 
-        PhotonNetwork.Disconnect();
+        PhotonNetwork.LeaveRoom();
 
 
 
