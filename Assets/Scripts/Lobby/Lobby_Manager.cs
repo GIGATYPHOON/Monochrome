@@ -91,7 +91,6 @@ public class Lobby_Manager : SingletonPun<Lobby_Manager>
     {
         //Load the game scene here
 
-
         if (PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.LoadLevel(1);

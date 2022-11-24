@@ -18,6 +18,8 @@ public class Death_Manager : MonoBehaviourPunCallbacks
     GameObject[] Playersa;
 
 
+
+
     //If All players HP = 0 -> End Scene (Lose)
 
     //If boss HP=0 -> End scene (Win)
@@ -32,6 +34,7 @@ public class Death_Manager : MonoBehaviourPunCallbacks
     void Update()
     {
         EndScreen();
+
     }
 
 
@@ -40,7 +43,7 @@ public class Death_Manager : MonoBehaviourPunCallbacks
         Playersa = GameObject.FindGameObjectsWithTag("Player");
 
 
-        if (WhiteBoss.GetComponent <Entity>().returnHP() <= 0.0)
+        if (WhiteBoss.GetComponent<Entity>().returnHP() <= 0.0)
         {
 
             PhotonNetwork.MasterClient.SetWin(true);
@@ -48,7 +51,7 @@ public class Death_Manager : MonoBehaviourPunCallbacks
             print(PhotonNetwork.MasterClient.GetWin() + "  " + PhotonNetwork.MasterClient.GetPlayerNumber());
 
 
-            if(PhotonNetwork.MasterClient.GetWin() == true)
+            if (PhotonNetwork.MasterClient.GetWin() == true)
             {
 
                 PhotonNetwork.LoadLevel(2);
@@ -59,7 +62,7 @@ public class Death_Manager : MonoBehaviourPunCallbacks
 
 
 
-        if (Playersa.Length ==0)
+        if (Playersa.Length == 0)
         {
             PhotonNetwork.MasterClient.SetWin(false);
 
@@ -74,7 +77,6 @@ public class Death_Manager : MonoBehaviourPunCallbacks
             }
 
         }
-        
+
     }
- 
 }
