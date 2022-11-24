@@ -55,7 +55,7 @@ public class Death_Manager : MonoBehaviourPunCallbacks
             }
 
 
-            if (player.GetWin() == true)
+            if (PhotonNetwork.LocalPlayer.GetWin() == true)
             {
 
 
@@ -79,9 +79,9 @@ public class Death_Manager : MonoBehaviourPunCallbacks
             }
 
 
-
-            if (player.GetWin() == false)
+            if (PhotonNetwork.LocalPlayer.GetWin() ==false)
             {
+
 
                 PhotonNetwork.LoadLevel(2);
                 Destroy(this);
