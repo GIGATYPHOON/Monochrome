@@ -26,7 +26,7 @@ public class Entity : MonoBehaviourPunCallbacks/*, IPunObservable*/
 
     void Start()
     {
-        
+     
     }
 
     // Update is called once per frame
@@ -35,7 +35,7 @@ public class Entity : MonoBehaviourPunCallbacks/*, IPunObservable*/
 
         HPBarSync(HP, MaxHP);
 
-        if(playercontrolled)
+        if (playercontrolled)
         {
             hpbar.GetComponentInChildren<Image>().color = Color.yellow;
 
