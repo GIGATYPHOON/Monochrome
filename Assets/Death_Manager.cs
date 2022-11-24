@@ -7,7 +7,7 @@ using UnityEngine.Events;
 using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 
-public class Death_Manager : MonoBehaviour
+public class Death_Manager : SingletonPun<Death_Manager>
 {
 
     //Check Health of Player and boss
@@ -46,6 +46,7 @@ public class Death_Manager : MonoBehaviour
             }
             Debug.LogFormat("PhotonNetwork : Loading Level : {0}", PhotonNetwork.CurrentRoom.PlayerCount);
             PhotonNetwork.LoadLevel(2);
+            Destroy(this);
         }
     }
  
