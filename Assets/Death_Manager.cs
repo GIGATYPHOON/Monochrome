@@ -54,6 +54,7 @@ public class Death_Manager : MonoBehaviourPunCallbacks
             if (PhotonNetwork.MasterClient.GetWin() == true)
             {
 
+                PhotonNetwork.LeaveRoom();
                 PhotonNetwork.LoadLevel(2);
                 Destroy(this);
             }
@@ -72,6 +73,7 @@ public class Death_Manager : MonoBehaviourPunCallbacks
             if (PhotonNetwork.MasterClient.GetWin() == false)
             {
 
+                PhotonNetwork.LeaveRoom();
                 PhotonNetwork.LoadLevel(2);
                 Destroy(this);
             }

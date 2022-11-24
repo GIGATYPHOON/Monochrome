@@ -37,8 +37,6 @@ public class Return : MonoBehaviour
         Debug.LogFormat("PhotonNetwork : Loading Level : {0}", PhotonNetwork.CurrentRoom.PlayerCount);
         PhotonNetwork.LoadLevel(0);
 
-        PhotonNetwork.LeaveRoom();
-
         Destroy(this);
 
     }
