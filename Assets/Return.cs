@@ -28,13 +28,7 @@ public class Return : MonoBehaviour
 
     public void EndScreee()
     {
-
-        if (!PhotonNetwork.IsMasterClient)
-        {
-            Debug.LogError("PhotonNetwork : Trying to Load a level but we are not the master Client");
-            return;
-        }
-        Debug.LogFormat("PhotonNetwork : Loading Level : {0}", PhotonNetwork.CurrentRoom.PlayerCount);
+        PhotonNetwork.ConnectUsingSettings();
         PhotonNetwork.LoadLevel(0);
 
         Destroy(this);

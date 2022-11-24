@@ -45,19 +45,23 @@ public class Death_Manager : MonoBehaviourPunCallbacks
 
         if (WhiteBoss.GetComponent<Entity>().returnHP() <= 0.0)
         {
-
-            PhotonNetwork.MasterClient.SetWin(true);
-
-            print(PhotonNetwork.MasterClient.GetWin() + "  " + PhotonNetwork.MasterClient.GetPlayerNumber());
-
-
-            if (PhotonNetwork.MasterClient.GetWin() == true)
+            foreach (Player player in PhotonNetwork.PlayerList)
             {
+                player.SetWin(true);
 
-                PhotonNetwork.LeaveRoom();
-                PhotonNetwork.LoadLevel(2);
-                Destroy(this);
+
+
+                if (player.GetWin() == true)
+                {
+
+                    PhotonNetwork.LeaveRoom();
+                    PhotonNetwork.LoadLevel(2);
+                    Destroy(this);
+                }
             }
+
+
+
 
         }
 
@@ -65,19 +69,20 @@ public class Death_Manager : MonoBehaviourPunCallbacks
 
         if (Playersa.Length == 0)
         {
-            PhotonNetwork.MasterClient.SetWin(false);
-
-            print(PhotonNetwork.MasterClient.GetWin() + "  " + PhotonNetwork.MasterClient.GetPlayerNumber());
-
-
-            if (PhotonNetwork.MasterClient.GetWin() == false)
+            foreach (Player player in PhotonNetwork.PlayerList)
             {
+                player.SetWin(false);
 
-                PhotonNetwork.LeaveRoom();
-                PhotonNetwork.LoadLevel(2);
-                Destroy(this);
+
+
+                if (player.GetWin() == false)
+                {
+
+                    PhotonNetwork.LeaveRoom();
+                    PhotonNetwork.LoadLevel(2);
+                    Destroy(this);
+                }
             }
-
         }
 
     }
