@@ -1262,7 +1262,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55f877223028b0442995e80b64fa93a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPresist: 1
+  isPresist: 0
+  inreturnscreen: 1
   playerSprites:
   - {fileID: 0}
   - {fileID: 0}

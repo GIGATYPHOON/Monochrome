@@ -46,7 +46,7 @@ public class Return : MonoBehaviourPunCallbacks
 
 
 
-        StartCoroutine(ExecuteAfterTime(1.5f));
+        StartCoroutine(ExecuteAfterTime(1.0f));
 
 
 

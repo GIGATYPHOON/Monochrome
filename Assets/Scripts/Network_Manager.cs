@@ -7,7 +7,8 @@ using Photon.Pun.UtilityScripts;
 public class Network_Manager : SingletonPun<Network_Manager>
 {
     private const string playerPefabName = "Player";
-
+    [SerializeField]
+    bool inreturnscreen;
 
 
     [SerializeField]
@@ -41,8 +42,11 @@ public class Network_Manager : SingletonPun<Network_Manager>
 
         //Instantiate a player gameObject to represent our local client
 
+        if(inreturnscreen == false)
+        {
+            PhotonNetwork.Instantiate(playerPefabName, Vector3.up * 100f, Quaternion.identity);
+        }
 
-        PhotonNetwork.Instantiate(playerPefabName, Vector3.up * 100f, Quaternion.identity);
 
     }
 

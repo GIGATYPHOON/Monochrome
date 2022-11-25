@@ -36,24 +36,24 @@ public class EndGame : MonoBehaviourPunCallbacks
     {
 
 
-        if (PhotonNetwork.MasterClient.GetDone()== true)
-        {
-            texttochange.GetComponent<TextMeshProUGUI>().text = "Y O U   W I N";
-            hapi.SetActive(true);
-            sadge.SetActive(false);
+        //if (PhotonNetwork.MasterClient.GetDone()== true)
+        //{
+        //    texttochange.GetComponent<TextMeshProUGUI>().text = "Y O U   W I N";
+        //    hapi.SetActive(true);
+        //    sadge.SetActive(false);
 
-        }
-        else
-        {
-            texttochange.GetComponent<TextMeshProUGUI>().text = "Y O U   L O S E";
-            hapi.SetActive(false);
-            sadge.SetActive(true);
-        }
-
-
+        //}
+        //else
+        //{
+        //    texttochange.GetComponent<TextMeshProUGUI>().text = "Y O U   L O S E";
+        //    hapi.SetActive(false);
+        //    sadge.SetActive(true);
+        //}
 
 
-        if (PhotonNetwork.MasterClient.GetWin() == true)
+
+
+        if (PhotonNetwork.LocalPlayer.GetWin() == true)
         {
             texttochange.GetComponent<TextMeshProUGUI>().text = "Y O U   W I N";
             hapi.SetActive(true);
