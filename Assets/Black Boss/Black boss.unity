@@ -3428,8 +3428,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1712358668}
   - component: {fileID: 1712358670}
-  - component: {fileID: 1712358671}
   - component: {fileID: 1712358672}
+  - component: {fileID: 1712358671}
   m_Layer: 0
   m_Name: BlackBossSprite
   m_TagString: Untagged
@@ -3517,7 +3517,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   atkDmg: 10
-  knockbackAmt: 10
+  knockbackAmt: 75
   blackBoss: {fileID: 1133315532}
 --- !u!61 &1712358672
 BoxCollider2D:

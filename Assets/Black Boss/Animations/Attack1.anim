@@ -1651,6 +1651,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0
+    functionName: ToggleAura
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.85
     functionName: TeleportToMarkedTarget
     data: 
@@ -1658,8 +1665,15 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.3833333
+  - time: 1.6666666
     functionName: TeleportToMarkedTarget
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 3
+    functionName: ToggleAura
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
