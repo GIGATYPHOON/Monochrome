@@ -183,6 +183,8 @@ public class BlackBoss : MonoBehaviour
                 break;
 
             case 3:
+                MarkNewTarget();
+                entity.damageMultiplier = 0.75f;
                 blackBossAura.SetActive(true);
                 canInvuln = false;
                 canAttack = true;

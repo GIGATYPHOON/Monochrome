@@ -13,8 +13,7 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     private float HP = 100;
     [SerializeField]
     private float MaxHP = 100;
-    [SerializeField]
-    private float damageMultiplier = 1.0f;
+    public float damageMultiplier = 1.0f;
     public bool isVulnerable = true;
 
     [SerializeField]
