@@ -59,14 +59,17 @@ public class BlackBoss : MonoBehaviour
 
         HandleVulnerability();
         HandlePlayerPulling();
-        MarkNewTarget();
         MoveToMarkedTarget();
 
-        distanceToTarget = Vector2.Distance(transform.position, markedTarget.position);
-        if (markedTarget != null && canAttack && distanceToTarget <= meleeAtkTriggerDist)
+        if (markedTarget != null)
         {
-            Debug.Log("Attacking marked target");
-            AttackMarkedTarget();
+            distanceToTarget = Vector2.Distance(transform.position, markedTarget.position);
+
+            if (canAttack && distanceToTarget <= meleeAtkTriggerDist)
+            {
+                Debug.Log("Attacking marked target");
+                AttackMarkedTarget();
+            }
         }
     }
 
