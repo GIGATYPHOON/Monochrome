@@ -264,6 +264,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP: 100
   MaxHP: 100
+  damageMultiplier: 1
+  isVulnerable: 1
   hpbar: {fileID: 5972127584164187261}
   onHit:
     m_PersistentCalls:
@@ -386,7 +388,7 @@ GameObject:
   - component: {fileID: 5296306403627008538}
   - component: {fileID: 5296306403627008539}
   - component: {fileID: 5296306403627008537}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Groundchecker
   m_TagString: Untagged
   m_Icon: {fileID: 0}

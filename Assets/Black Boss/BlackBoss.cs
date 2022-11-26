@@ -31,6 +31,8 @@ public class BlackBoss : MonoBehaviour
     private Transform markedTarget;
     [SerializeField]
     private float movementSpeed;
+    [SerializeField]
+    private float jumpStrength;
 
     [SerializeField]
     private bool canAttack = true;
@@ -40,6 +42,14 @@ public class BlackBoss : MonoBehaviour
     private float meleeAtkTriggerDist;
     private float distanceToTarget;
 
+    [SerializeField]
+    private BoxCollider2D groundChecker;
+    [SerializeField]
+    private LayerMask groundCheckerLayerMask;
+    [SerializeField]
+    private float platformCheckOffset;
+    private int platformAvoidDirection;
+    private bool isDroppingOffPlatform;
     [SerializeField]
     private List<GameObject> playerList; //To be replaced with Photon player list when implemented
     [SerializeField]
@@ -147,22 +157,73 @@ public class BlackBoss : MonoBehaviour
     private void MoveToMarkedTarget()
     {
         if (markedTarget == null || !canMove || isAttacking) return;
-        JumpCheck();
-        float jump;
 
-        if (JumpCheck() == true)
+        Vector3 targetDir = AvoidObstacles();
+        Vector2 movement = movementSpeed * Time.deltaTime * targetDir;
+        transform.position += new Vector3(movement.x, 0, 0);
+
+        HandleJump();
+    }
+
+    private void DetermineAvoidDirection()
+    {
+        if (transform.position.x <= markedTarget.position.x)
         {
-            jump = 2.5f;
+            platformAvoidDirection = 1;
+            isDroppingOffPlatform = true;
         }
         else
         {
-            jump = 0;
+            platformAvoidDirection = -1;
+            isDroppingOffPlatform = true;
+        }
+    }
+
+    private Vector3 AvoidObstacles()
+    {
+        if (!groundChecker.IsTouchingLayers(groundCheckerLayerMask))
+        {
+            isDroppingOffPlatform = false;
+            return Vector3.zero;
         }
 
+        if (!isDroppingOffPlatform && groundChecker.IsTouchingLayers(groundCheckerLayerMask) && markedTarget.position.y < transform.position.y + platformCheckOffset)
+        {
+            DetermineAvoidDirection();
+        }
 
-        Vector2 movement = movementSpeed * Time.deltaTime * (markedTarget.position - transform.position).normalized;
-        transform.position += new Vector3(movement.x, jump, 0) ;
+        if (isDroppingOffPlatform)
+        {
+            return new Vector3(platformAvoidDirection, 0, 0);
+        }
+
+        if (transform.position.x <= markedTarget.position.x)
+            return new Vector3(1, 0, 0);
+
+        else
+            return new Vector3(-1, 0, 0);
     }
+
+    private void HandleJump()
+    {
+        RaycastHit2D hit1 = Physics2D.Raycast(transform.position, transform.up, Mathf.Infinity, jumplayermask);
+
+        Debug.DrawRay(transform.position, transform.up * 1000f, Color.green);
+        if (hit1)
+        {
+
+            if (hit1.collider.transform == markedTarget)
+            {
+                Debug.Log("Marked target detected above");
+                if (groundChecker.IsTouchingLayers(groundCheckerLayerMask))
+                {
+                    Debug.Log("Boss is grounded");
+                    GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpStrength), ForceMode2D.Impulse);
+                }                
+            }
+        }
+
+    }    
 
     public void TeleportToMarkedTarget()
     {
@@ -255,30 +316,7 @@ public class BlackBoss : MonoBehaviour
     }
 
 
-    private bool JumpCheck()
-    {
-        RaycastHit2D hit1 = Physics2D.Raycast(transform.position, transform.up, Mathf.Infinity, jumplayermask);
-
-        Debug.DrawRay(transform.position, transform.up * 1000f, Color.green);
-        if (hit1)
-        {
-
-            if (hit1.collider.gameObject.tag ==)
-            {
-
-                return true;
-
-            }
-
-
-        }
-        else
-        {
-            
-        }
-        print("notwow");
-        return false;
-    }
+    
 
 
 
@@ -286,5 +324,8 @@ public class BlackBoss : MonoBehaviour
     {
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(transform.position, meleeAtkTriggerDist);
+
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y + platformCheckOffset, transform.position.z));
     }
 }
