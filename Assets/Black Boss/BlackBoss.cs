@@ -184,7 +184,11 @@ public class BlackBoss : MonoBehaviour
         if (!groundChecker.IsTouchingLayers(groundCheckerLayerMask))
         {
             isDroppingOffPlatform = false;
-            return Vector3.zero;
+            if (transform.position.x <= markedTarget.position.x)
+                return new Vector3(1, 0, 0);
+
+            else
+                return new Vector3(-1, 0, 0);
         }
 
         if (!isDroppingOffPlatform && groundChecker.IsTouchingLayers(groundCheckerLayerMask) && markedTarget.position.y < transform.position.y + platformCheckOffset)
