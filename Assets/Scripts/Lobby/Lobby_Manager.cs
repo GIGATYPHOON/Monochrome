@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.UI;
 
 public class Lobby_Manager : SingletonPun<Lobby_Manager>
 {
-    [SerializeField] private GameObject connectionPanel, loadingPanel, roomListPanel, playerListPanel;
+    [SerializeField] private GameObject connectionPanel, loadingPanel, roomListPanel, playerListPanel, chooseboss;
     private byte maxPlayersPerRoom = 4;
     private DebugLog debugger;
+
+    [SerializeField]
+    private bool WhiteBossSelected = true;
 
     private void Start()
     {
@@ -67,6 +71,7 @@ public class Lobby_Manager : SingletonPun<Lobby_Manager>
         connectionPanel.SetActive(panelName.Equals(connectionPanel.name));
         roomListPanel.SetActive(panelName.Equals(roomListPanel.name));
         playerListPanel.SetActive(panelName.Equals(playerListPanel.name));
+
     }
 
     public void CreateRoom()
@@ -98,6 +103,9 @@ public class Lobby_Manager : SingletonPun<Lobby_Manager>
 
     }
 
+
+
+
     public void StartGAMME()
     {
 
@@ -107,7 +115,16 @@ public class Lobby_Manager : SingletonPun<Lobby_Manager>
             return;
         }
         Debug.LogFormat("PhotonNetwork : Loading Level : {0}", PhotonNetwork.CurrentRoom.PlayerCount);
-        PhotonNetwork.LoadLevel(1);
+
+        if (chooseboss.GetComponent<Toggle>().isOn)
+        {
+            PhotonNetwork.LoadLevel(1);
+        }
+        else
+        {
+            PhotonNetwork.LoadLevel(3);
+        }
+
 
     }
 }

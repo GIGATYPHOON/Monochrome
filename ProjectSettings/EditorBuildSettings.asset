@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EndingScreen.unity
     guid: b28e8cb754776ad4e8b70cf259140e7a
+  - enabled: 1
+    path: Assets/Black Boss/Black boss.unity
+    guid: a40c6a0d895dbc74ba6278a65c07a27f
   m_configObjects: {}

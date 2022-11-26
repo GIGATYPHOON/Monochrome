@@ -16,6 +16,8 @@ public class PlayerList : MonoBehaviourPunCallbacks
     private TextMeshProUGUI roomName;
     [SerializeField]
     private Button playGame;
+    [SerializeField]
+    private Button chooseboss;
 
     private List<Player_Info> listings = new List<Player_Info>();
 
@@ -74,6 +76,7 @@ public class PlayerList : MonoBehaviourPunCallbacks
         roomName.text = PhotonNetwork.CurrentRoom.Name;
         //Only enable the start button if you are the master client of the room
         playGame.gameObject.SetActive(PhotonNetwork.CurrentRoom.MasterClientId == PhotonNetwork.LocalPlayer.ActorNumber);
+        chooseboss.gameObject.SetActive(PhotonNetwork.CurrentRoom.MasterClientId == PhotonNetwork.LocalPlayer.ActorNumber);
     }
 
     private void UpdateCurrentRoomPlayers()
