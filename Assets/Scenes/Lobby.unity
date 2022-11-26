@@ -4546,7 +4546,7 @@ MonoBehaviour:
   content: {fileID: 1641742340}
   roomName: {fileID: 1525889476}
   playGame: {fileID: 1699286315}
-  chooseboss: {fileID: 0}
+  chooseboss: {fileID: 328408406}
 --- !u!114 &1919342288
 MonoBehaviour:
   m_ObjectHideFlags: 0
