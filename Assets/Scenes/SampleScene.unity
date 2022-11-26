@@ -4690,10 +4690,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP: 250
   MaxHP: 250
+  damageMultiplier: 1
+  isVulnerable: 1
   hpbar: {fileID: 530530295}
   onHit:
     m_PersistentCalls:
       m_Calls: []
+  playercontrolled: 0
 --- !u!61 &1589617286
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5565,6 +5568,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3597080958274191508, guid: a79daf269b7543143926a4125d4093d2, type: 3}
+      propertyPath: sceneViewId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5296306403270051764, guid: a79daf269b7543143926a4125d4093d2, type: 3}
       propertyPath: m_Name
       value: Player

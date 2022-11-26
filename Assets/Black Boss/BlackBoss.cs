@@ -58,6 +58,10 @@ public class BlackBoss : MonoBehaviour
     private Sprite phaseOneSprite, phaseTwoSprite, phaseThreeSprite, invulnSprite;
 
 
+    [SerializeField]
+    private LayerMask jumplayermask;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -143,9 +147,21 @@ public class BlackBoss : MonoBehaviour
     private void MoveToMarkedTarget()
     {
         if (markedTarget == null || !canMove || isAttacking) return;
+        JumpCheck();
+        float jump;
+
+        if (JumpCheck() == true)
+        {
+            jump = 2.5f;
+        }
+        else
+        {
+            jump = 0;
+        }
+
 
         Vector2 movement = movementSpeed * Time.deltaTime * (markedTarget.position - transform.position).normalized;
-        transform.position += new Vector3(movement.x, 0, 0);
+        transform.position += new Vector3(movement.x, jump, 0) ;
     }
 
     public void TeleportToMarkedTarget()
@@ -239,7 +255,30 @@ public class BlackBoss : MonoBehaviour
     }
 
 
+    private bool JumpCheck()
+    {
+        RaycastHit2D hit1 = Physics2D.Raycast(transform.position, transform.up, Mathf.Infinity, jumplayermask);
 
+        Debug.DrawRay(transform.position, transform.up * 1000f, Color.green);
+        if (hit1)
+        {
+
+            if (hit1.collider.gameObject.tag ==)
+            {
+
+                return true;
+
+            }
+
+
+        }
+        else
+        {
+            
+        }
+        print("notwow");
+        return false;
+    }
 
 
 

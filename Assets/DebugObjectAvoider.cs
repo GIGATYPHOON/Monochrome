@@ -46,7 +46,7 @@ public class DebugObjectAvoider : MonoBehaviour
         //    targetPoint = Vector2.zero;
         //}
 
-        targetPoint = (2*this.transform.position) - GameObject.Find("Player").transform.position;
+        targetPoint =  GameObject.Find("Player").transform.position;
 
         //targetPoint = new Vector2( Mathf.Clamp(targetPoint.x, -14f,14f), Mathf.Clamp(targetPoint.y, -6f, 10f));
 
