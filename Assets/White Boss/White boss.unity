@@ -1313,6 +1313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPresist: 1
+  inreturnscreen: 0
   playerSprites:
   - {fileID: 0}
   - {fileID: 0}
@@ -2831,8 +2832,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 051c04de08d93af43b98a31a8fdb3b32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 1
-  MaxHP: 1
+  HP: 100
+  MaxHP: 100
+  damageMultiplier: 1
+  isVulnerable: 1
   hpbar: {fileID: 1859163444}
   onHit:
     m_PersistentCalls:
@@ -2918,6 +2921,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
+  - {fileID: 1133315528}
   - {fileID: 1133315531}
   - {fileID: 1133315533}
   - {fileID: 1133315532}
@@ -3390,6 +3394,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP: 15
   MaxHP: 15
+  damageMultiplier: 1
+  isVulnerable: 1
   hpbar: {fileID: 1049613487}
   onHit:
     m_PersistentCalls:
