@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 public class BlackBoss : MonoBehaviour
 {
@@ -44,6 +45,10 @@ public class BlackBoss : MonoBehaviour
     [SerializeField]
     private GameObject blackBossAura;
     private Entity entity;
+    [SerializeField]
+    private Image pullTimer;
+    [SerializeField]
+    private Image pullTimerBG;
     [SerializeField]
     private SpriteRenderer blackBossSprite;
 
@@ -119,6 +124,8 @@ public class BlackBoss : MonoBehaviour
 
             pullIntervalTimer = pullInterval;
         }
+
+        pullTimer.fillAmount = pullIntervalTimer / pullInterval;
     }
 
     public void MarkNewTarget()
@@ -182,6 +189,8 @@ public class BlackBoss : MonoBehaviour
                 canAttack = false;
                 canMove = false;
                 canPull = true;
+                pullTimer.enabled = true;
+                pullTimerBG.enabled = true;
                 break;
 
             case 2:
@@ -193,6 +202,8 @@ public class BlackBoss : MonoBehaviour
                 canAttack = true;
                 canMove = true;
                 canPull = false;
+                pullTimer.enabled = false;
+                pullTimerBG.enabled = false;
                 break;
 
             case 3:
@@ -204,6 +215,8 @@ public class BlackBoss : MonoBehaviour
                 canAttack = true;
                 canMove = true;
                 canPull = false;
+                pullTimer.enabled = false;
+                pullTimerBG.enabled = false;
                 break;
         }
     }
