@@ -94,7 +94,7 @@ public class BlackBoss : MonoBehaviourPunCallbacks
         {
             distanceToTarget = Vector2.Distance(transform.position, markedTarget.position);
 
-            if (canAttack && distanceToTarget <= meleeAtkTriggerDist)
+            if (canAttack && distanceToTarget <= meleeAtkTriggerDist && markedTarget.GetComponent<Entity>().returnHP() >0)
             {
                 Debug.Log("Attacking marked target");
                 //AttackMarkedTarget();
