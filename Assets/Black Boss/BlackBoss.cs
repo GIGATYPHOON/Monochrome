@@ -50,6 +50,8 @@ public class BlackBoss : MonoBehaviour
     [SerializeField]
     private Image pullTimerBG;
     [SerializeField]
+    private Animator pullAnimator;
+    [SerializeField]
     private SpriteRenderer blackBossSprite;
 
     [SerializeField]
@@ -61,6 +63,7 @@ public class BlackBoss : MonoBehaviour
     {
         entity = GetComponent<Entity>();
         PhaseChange();
+        pullIntervalTimer = pullInterval;
     }
 
     // Update is called once per frame
@@ -121,6 +124,8 @@ public class BlackBoss : MonoBehaviour
             {
                 player.GetComponent<Rigidbody2D>().AddForce((transform.position - player.transform.position).normalized * pullForce, ForceMode2D.Impulse);
             }
+
+            pullAnimator.Play("PullPlayers");
 
             pullIntervalTimer = pullInterval;
         }
@@ -221,10 +226,16 @@ public class BlackBoss : MonoBehaviour
         }
     }
 
-    public void ToggleAura()
+    public void ToggleOnAura()
     {
         if (phase == 3)
-            blackBossAura.SetActive(!blackBossAura.activeInHierarchy);
+            blackBossAura.SetActive(true);
+    }
+
+    public void ToggleOffAura()
+    {
+        if (phase == 3)
+            blackBossAura.SetActive(false);
     }
 
 
