@@ -1162,9 +1162,13 @@ MonoBehaviour:
   canAttack: 1
   isAttacking: 0
   meleeAtkTriggerDist: 1.9
-  distanceToTarget: 0
   playerList: []
   blackBossAura: {fileID: 1513186365}
+  blackBossSprite: {fileID: 1712358670}
+  phaseOneSprite: {fileID: 21300000, guid: 019919bfec6cb714893a4b670908dfbd, type: 3}
+  phaseTwoSprite: {fileID: 21300000, guid: dda5da8c34ab2614683db276d0384792, type: 3}
+  phaseThreeSprite: {fileID: 21300000, guid: 2bd9dff1b5ba7b6418e19bc6db508abf, type: 3}
+  invulnSprite: {fileID: 21300000, guid: f216026aad718f64a925c8acc86e7a0d, type: 3}
 --- !u!50 &1133315533
 Rigidbody2D:
   serializedVersion: 4
@@ -1177,10 +1181,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 25
+  m_Mass: 1000
   m_LinearDrag: 1
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 3
   m_Material: {fileID: 6200000, guid: d405de237ece2624680a4441264b46c4, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -2001,13 +2005,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 63dc623dc37a8d44baa9fa135a75cfa7, type: 3}
-  m_Color: {r: 0.16037738, g: 0.16037738, b: 0.16037738, a: 1}
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 21300000, guid: 019919bfec6cb714893a4b670908dfbd, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 0.6, y: 0.6}
+  m_DrawMode: 1
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -2045,10 +2049,10 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 0.6, y: 0.6}
+    oldSize: {x: 0.6, y: 0.6}
+    newSize: {x: 2.11, y: 0.28}
     adaptiveTilingThreshold: 0.5
-    drawMode: 0
+    drawMode: 1
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2

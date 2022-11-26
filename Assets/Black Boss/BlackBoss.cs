@@ -37,13 +37,19 @@ public class BlackBoss : MonoBehaviour
     private bool isAttacking = false;
     [SerializeField]
     private float meleeAtkTriggerDist;
-    public float distanceToTarget;
+    private float distanceToTarget;
 
     [SerializeField]
     private List<GameObject> playerList; //To be replaced with Photon player list when implemented
     [SerializeField]
     private GameObject blackBossAura;
     private Entity entity;
+    [SerializeField]
+    private SpriteRenderer blackBossSprite;
+
+    [SerializeField]
+    private Sprite phaseOneSprite, phaseTwoSprite, phaseThreeSprite, invulnSprite;
+
 
     // Start is called before the first frame update
     void Start()
@@ -86,11 +92,13 @@ public class BlackBoss : MonoBehaviour
             {
                 entity.isVulnerable = false;
                 vulnIntervalTimer = invulnInterval;
+                blackBossSprite.sprite = invulnSprite;
             }
             else if (!entity.isVulnerable)
             {
                 entity.isVulnerable = true;
                 vulnIntervalTimer = vulnInterval;
+                blackBossSprite.sprite = phaseOneSprite;
             }
         }
     }
@@ -170,6 +178,7 @@ public class BlackBoss : MonoBehaviour
             case 1:
                 blackBossAura.SetActive(true);
                 canInvuln = true;
+                blackBossSprite.sprite = phaseOneSprite;
                 canAttack = false;
                 canMove = false;
                 canPull = true;
@@ -180,6 +189,7 @@ public class BlackBoss : MonoBehaviour
                 blackBossAura.SetActive(false);
                 canInvuln = false;
                 entity.isVulnerable = true;
+                blackBossSprite.sprite = phaseTwoSprite;
                 canAttack = true;
                 canMove = true;
                 canPull = false;
@@ -190,6 +200,7 @@ public class BlackBoss : MonoBehaviour
                 entity.damageMultiplier = 0.75f;
                 blackBossAura.SetActive(true);
                 canInvuln = false;
+                blackBossSprite.sprite = phaseThreeSprite;
                 canAttack = true;
                 canMove = true;
                 canPull = false;
