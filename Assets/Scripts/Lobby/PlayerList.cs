@@ -17,7 +17,7 @@ public class PlayerList : MonoBehaviourPunCallbacks
     [SerializeField]
     private Button playGame;
     [SerializeField]
-    private Button chooseboss;
+    private Toggle chooseboss;
 
     private List<Player_Info> listings = new List<Player_Info>();
 
