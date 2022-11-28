@@ -2241,7 +2241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53723013f129ba84082be32f45808e5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laser: {fileID: 8300000, guid: b004afa3b82027e40abd8b3e57920b3b, type: 3}
+  laser: {fileID: 8300000, guid: 9093ab43e71c29841b5c765df1556c90, type: 3}
 --- !u!61 &876978986
 BoxCollider2D:
   m_ObjectHideFlags: 0
