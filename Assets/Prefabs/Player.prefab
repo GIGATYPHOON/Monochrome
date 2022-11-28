@@ -169,7 +169,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -267,6 +267,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP: 100
   MaxHP: 100
+  damageMultiplier: 1
+  isVulnerable: 1
   hpbar: {fileID: 5972127584164187261}
   onHit:
     m_PersistentCalls:
@@ -340,6 +342,7 @@ MonoBehaviour:
   OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents:
+  - {fileID: 2541767816814588817}
   - {fileID: 4947359833524188845}
   - {fileID: 7789761680847065269}
   sceneViewId: 0
@@ -716,6 +719,22 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2549130244744763443, guid: 33846f4758382914eb24d4874ba210a3, type: 3}
+      propertyPath: m_BackGroundColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549130244744763443, guid: 33846f4758382914eb24d4874ba210a3, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549130244744763443, guid: 33846f4758382914eb24d4874ba210a3, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549130244744763443, guid: 33846f4758382914eb24d4874ba210a3, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2549130244744763596, guid: 33846f4758382914eb24d4874ba210a3, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -772,3 +791,23 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2549130244744763440, guid: 33846f4758382914eb24d4874ba210a3, type: 3}
   m_PrefabInstance: {fileID: 1703242960098566037}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &8995210259597596337
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3802012257482393509}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8cb2e4c2624373544a1a3707b5348598, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
