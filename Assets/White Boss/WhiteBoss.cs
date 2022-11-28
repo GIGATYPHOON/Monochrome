@@ -406,16 +406,20 @@ public class WhiteBoss : MonoBehaviourPunCallbacks
 
     public void FireMissiles()
     {
-        if (currentMissileCooldown > 0 && !PhotonNetwork.IsMasterClient)
+        if (currentMissileCooldown > 0 )
             return;
 
         currentMissileCooldown = missileCooldown;
 
         
-        foreach (GameObject player in playerList)
+        foreach (GameObject player in playerList )
         {
-            GameObject missile = PhotonNetwork.Instantiate("Homer", bulletspawn.transform.position, bulletspawn.transform.rotation); //To be replaced with PhotonNetwork.Instantiate
-            missile.GetComponent<WhiteBossMissile>().SetTarget(player.transform);
+            if(PhotonNetwork.IsMasterClient)
+            {
+                GameObject missile = PhotonNetwork.Instantiate("Homer", bulletspawn.transform.position, bulletspawn.transform.rotation); //To be replaced with PhotonNetwork.Instantiate
+                missile.GetComponent<WhiteBossMissile>().SetTarget(player.transform);
+            }
+
         }
     }
 
