@@ -11,7 +11,7 @@ using Unity.VisualScripting;
 
 public class WhiteBoss : MonoBehaviourPunCallbacks
 {
-   
+  
     [SerializeField]
     private GameObject shield;
     [SerializeField]
@@ -30,7 +30,8 @@ public class WhiteBoss : MonoBehaviourPunCallbacks
 
 
     #region Lasers
-
+    [SerializeField]
+    private AudioSource LaserAudio;
     [SerializeField]
     bool laser = false;
     [SerializeField]
@@ -426,14 +427,15 @@ public class WhiteBoss : MonoBehaviourPunCallbacks
        
         if (laser == true)
         {
-
+            //LaserAudio.Play();
             whitelaserobject.gameObject.SetActive(true);
+           
             whiteauraobject.gameObject.SetActive(false);
             whitelaser();
         }
         else
         {
-
+           // LaserAudio.Stop();
             whitelaserobject.gameObject.SetActive(false);
             whiteauraobject.gameObject.SetActive(true);
         }

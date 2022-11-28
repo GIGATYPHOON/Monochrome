@@ -13,6 +13,8 @@ public class WhiteBossMissile : MonoBehaviourPunCallbacks
     public Transform targetPlayer;
     private Vector3 targetDir;
     private Quaternion targetRot;
+    [SerializeField]
+   public AudioSource ExplosionSFX;
 
     [SerializeField]
     private float raycastDistance;
@@ -134,7 +136,7 @@ public class WhiteBossMissile : MonoBehaviourPunCallbacks
     [PunRPC]
     void diesinnetworkalso()
     {
-
+        
         Instantiate(explosion, transform.position, Quaternion.identity);
         this.gameObject.SetActive(false);
     }

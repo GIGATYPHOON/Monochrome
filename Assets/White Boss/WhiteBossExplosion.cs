@@ -5,6 +5,7 @@ using UnityEngine;
 public class WhiteBossExplosion : MonoBehaviour
 {
     // Start is called before the first frame update
+    
     void Start()
     {
         
