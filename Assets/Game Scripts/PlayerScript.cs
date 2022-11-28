@@ -379,7 +379,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
             pooledBullet.SetActive(true);
 
 
-
+            GetComponent<AudioSource>().Play();
 
             //shotstaken += 1;
         }
