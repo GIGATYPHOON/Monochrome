@@ -254,6 +254,8 @@ MonoBehaviour:
   isdead: 0
   normalsprite: {fileID: 21300000, guid: bd702d0da706f8d41b36626f4c51d8b1, type: 3}
   tombstone: {fileID: 21300000, guid: 512cb6f7ecc97694b81ffa21b6a863d0, type: 3}
+  shootsingle: {fileID: 8300000, guid: 3455d8618ce56f24d873331c18679783, type: 3}
+  jump: {fileID: 8300000, guid: a87e0a19bf3b1b34abfa9bd07853d3a1, type: 3}
 --- !u!114 &2541767816814588817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,15 +361,15 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 79f18a139adca22408fddba54996e84a, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 3455d8618ce56f24d873331c18679783, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.071
+  m_Volume: 0.244
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 115
   DopplerLevel: 1
   MinDistance: 2.5804563
   MaxDistance: 500

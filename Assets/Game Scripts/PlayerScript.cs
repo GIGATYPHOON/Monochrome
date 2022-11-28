@@ -67,6 +67,12 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     [SerializeField]
     Sprite tombstone;
 
+    [SerializeField]
+    AudioClip shootsingle, jump;
+
+
+
+
     private void OnEnable()
     {
         base.OnEnable();
@@ -232,6 +238,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
         {
 
             GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpheight * 100f, ForceMode2D.Force);
+            GetComponent<AudioSource>().PlayOneShot(jump);
         }
 
 
@@ -254,6 +261,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
         {
             jumpcharges -= 1;
             GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpheight * 100f, ForceMode2D.Force);
+            GetComponent<AudioSource>().PlayOneShot(jump);
         }
 
         if (groundchecker.GetComponent<GroundChecker>().onground)
@@ -379,7 +387,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
             pooledBullet.SetActive(true);
 
 
-            GetComponent<AudioSource>().Play();
+            GetComponent<AudioSource>().PlayOneShot(shootsingle);
 
             //shotstaken += 1;
         }

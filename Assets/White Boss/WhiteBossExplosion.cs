@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class WhiteBossExplosion : MonoBehaviour
 {
-    // Start is called before the first frame update
-    
+    [SerializeField]
+    AudioClip xplode;
+
     void Start()
     {
         
+    }
+
+    private void OnEnable()
+    {
+        GetComponent<AudioSource>().PlayOneShot(xplode, 0.5f);
     }
 
     // Update is called once per frame

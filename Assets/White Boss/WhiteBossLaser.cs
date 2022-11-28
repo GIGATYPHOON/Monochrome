@@ -4,7 +4,15 @@ using UnityEngine;
 
 public class WhiteBossLaser : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField]
+    AudioClip laser;
+
+    private void OnEnable()
+    {
+        GetComponent<AudioSource>().PlayOneShot(laser, 0.5f);
+    }
+
+
     void Start()
     {
         
