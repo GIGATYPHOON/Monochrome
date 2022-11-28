@@ -211,7 +211,7 @@ public class WhiteBoss : MonoBehaviourPunCallbacks
                 break;
         };
         
- 
+        
         TickMissleCooldown();  
 
         if(bulletcount>= bulletcountlimit)
@@ -406,11 +406,12 @@ public class WhiteBoss : MonoBehaviourPunCallbacks
 
     public void FireMissiles()
     {
-        if (currentMissileCooldown > 0)
+        if (currentMissileCooldown > 0 && PhotonNetwork.IsMasterClient)
             return;
 
         currentMissileCooldown = missileCooldown;
 
+        
         foreach (GameObject player in playerList)
         {
             GameObject missile = PhotonNetwork.Instantiate("Homer", bulletspawn.transform.position, bulletspawn.transform.rotation); //To be replaced with PhotonNetwork.Instantiate
