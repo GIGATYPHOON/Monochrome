@@ -406,7 +406,7 @@ public class WhiteBoss : MonoBehaviourPunCallbacks
 
     public void FireMissiles()
     {
-        if (currentMissileCooldown > 0 && PhotonNetwork.IsMasterClient)
+        if (currentMissileCooldown > 0 && !PhotonNetwork.IsMasterClient)
             return;
 
         currentMissileCooldown = missileCooldown;
