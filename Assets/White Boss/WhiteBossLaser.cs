@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class WhiteBossLaser : MonoBehaviour
 {
+    [SerializeField]
+    AudioClip LaserSFX;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +17,10 @@ public class WhiteBossLaser : MonoBehaviour
     {
         
     }
-
+    private void OnEnable()
+    {
+        GetComponent<AudioSource>().PlayOneShot(LaserSFX, 0.5f);
+    }
     private void OnTriggerStay2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "Player")
