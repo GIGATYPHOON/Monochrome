@@ -251,7 +251,7 @@ public class BlackBoss : MonoBehaviourPunCallbacks
     private void AttackMarkedTarget()
     {
         GetComponent<Animator>().Play("Attack1");
-        GetComponent<AudioSource>().PlayOneShot(MeleeAttack, 0.3f);
+        
 
     }
 
@@ -331,6 +331,7 @@ public class BlackBoss : MonoBehaviourPunCallbacks
     {
         if (phase == 3)
             blackBossAura.SetActive(false);
+        GetComponent<AudioSource>().PlayOneShot(MeleeAttack, 0.3f);
     }
 
 
