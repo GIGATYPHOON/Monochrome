@@ -8,6 +8,10 @@ using Photon.Pun;
 public class BlackBoss : MonoBehaviourPunCallbacks
 {
     [SerializeField]
+    AudioClip Vacc;
+    [SerializeField]
+    AudioClip MeleeAttack;
+    [SerializeField]
     private int phase = 1;
 
     [SerializeField]
@@ -149,7 +153,7 @@ public class BlackBoss : MonoBehaviourPunCallbacks
             }
 
             pullAnimator.Play("PullPlayers");
-
+            GetComponent<AudioSource>().PlayOneShot(Vacc, 0.5f);
             pullIntervalTimer = pullInterval;
         }
 
@@ -247,6 +251,8 @@ public class BlackBoss : MonoBehaviourPunCallbacks
     private void AttackMarkedTarget()
     {
         GetComponent<Animator>().Play("Attack1");
+        GetComponent<AudioSource>().PlayOneShot(MeleeAttack, 0.3f);
+
     }
 
     public void PhaseCheck()

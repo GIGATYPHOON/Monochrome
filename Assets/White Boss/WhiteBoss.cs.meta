@@ -3,7 +3,20 @@ guid: 22aca60918e2ce346a393270ce6bb26e
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - LaserSFX: {fileID: 8300000, guid: b092136597dfeaf40b3e9f6209f150f4, type: 3}
+  - shield: {instanceID: 0}
+  - phase1sprite: {instanceID: 0}
+  - phase2sprite: {instanceID: 0}
+  - phase3sprite: {instanceID: 0}
+  - whitelaserobject: {instanceID: 0}
+  - whiteauraobject: {instanceID: 0}
+  - whitelasertarget: {instanceID: 0}
+  - missileObj: {instanceID: 0}
+  - whiteavoidanceobject: {instanceID: 0}
+  - bulletspawnrotater: {instanceID: 0}
+  - bulletspawn: {instanceID: 0}
+  - bulletObj: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

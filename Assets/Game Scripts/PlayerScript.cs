@@ -13,7 +13,10 @@ using UnityEditor;
 public class PlayerScript : MonoBehaviourPunCallbacks
 {
     private PhotonView photonview;
-
+    [SerializeField]
+    AudioClip SingleShot;
+    [SerializeField]
+    AudioClip JumpSFX;
     [SerializeField]
     private bool startsright;
 
@@ -230,7 +233,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
 
         if (groundchecker.GetComponent<GroundChecker>().onground == true && Input.GetButtonDown("Jump"))
         {
-
+            GetComponent<AudioSource>().PlayOneShot(JumpSFX, 0.5f);
             GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpheight * 100f, ForceMode2D.Force);
         }
 
@@ -323,6 +326,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
         {
             photonView.RPC("Shoot_RPC", RpcTarget.AllBuffered, facingright);
             shotdelay = shotdelayset;
+            GetComponent<AudioSource>().PlayOneShot(SingleShot, 0.5f);
         }
 
 

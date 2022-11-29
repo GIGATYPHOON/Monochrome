@@ -9,6 +9,8 @@ public class WhiteBossMissile : MonoBehaviourPunCallbacks
     private float movementSpeed;
     [SerializeField]
     private float rotationSpeed;
+    [SerializeField]
+    AudioClip explosionSFX;
 
     public Transform targetPlayer;
     private Vector3 targetDir;
@@ -118,7 +120,7 @@ public class WhiteBossMissile : MonoBehaviourPunCallbacks
         {
             Die();
 
-
+            
             print("el dibalo");
         }
     }

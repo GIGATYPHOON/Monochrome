@@ -11,7 +11,8 @@ using Unity.VisualScripting;
 
 public class WhiteBoss : MonoBehaviourPunCallbacks
 {
-   
+    [SerializeField]
+    AudioClip LaserSFX;
     [SerializeField]
     private GameObject shield;
     [SerializeField]
@@ -232,6 +233,7 @@ public class WhiteBoss : MonoBehaviourPunCallbacks
 
     private void whitelaser()
     {
+        GetComponent<AudioSource>().PlayOneShot(LaserSFX, 0.5f);
         RaycastHit2D hit1 = Physics2D.Raycast(transform.position, whitelasertarget.transform.position - this.transform.position, Mathf.Infinity, laserMask);
 
         if (hit1)
@@ -431,7 +433,7 @@ public class WhiteBoss : MonoBehaviourPunCallbacks
        
         if (laser == true)
         {
-
+            
             whitelaserobject.gameObject.SetActive(true);
             whiteauraobject.gameObject.SetActive(false);
             whitelaser();
