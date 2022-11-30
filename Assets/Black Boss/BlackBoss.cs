@@ -255,6 +255,7 @@ public class BlackBoss : MonoBehaviourPunCallbacks
 
     }
 
+
     public void PhaseCheck()
     {
         float currentHPPercent = entity.returnHP() / entity.returnMaxHP();
@@ -278,7 +279,8 @@ public class BlackBoss : MonoBehaviourPunCallbacks
         }
     }
 
-    private void PhaseChange()
+
+    void PhaseChange()
     {
         switch (phase)
         {
